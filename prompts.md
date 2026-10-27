@@ -19,6 +19,22 @@ evidencia:
 | Preparación de los pedidos | con ayuda de **ChatGPT** | solo lo declarado por Pablo el 27/10/2026. No se conservan esas conversaciones, no consta el modelo y no se puede distinguir qué parte de cada texto aportó ChatGPT |
 | Ejecución | **Claude Code (CLI)** con **Claude Opus 5.5** (`claude-opus-5-5`) | comprobado en la transcripción local de la sesión del 27/10/2026 (no se comparte): texto literal, herramienta y modelo de cada flujo |
 
+## Contexto avanzado y herramientas utilizadas
+
+Lo que se usó realmente en la preparación de esta entrega, según la
+transcripción de la sesión y los archivos de configuración:
+
+| Elemento | ¿Se usó? | Evidencia |
+|---|---|---|
+| Skills | **no** | ninguna invocación en la transcripción |
+| Subagentes | **sí, uno**: `web-fetch`, para leer la publicación de LinkedIn que inspira la matriz de confiabilidad (27/10/2026) | transcripción |
+| `CLAUDE.md` del proyecto o del usuario | **no** | no existe en las carpetas de trabajo ni en la configuración del usuario |
+| Rules | **no** | no hay archivos de reglas |
+| Memoria persistente | **no** | el directorio de memoria del proyecto está vacío |
+| Servidores MCP | **no** | ninguna llamada a herramientas MCP |
+| Instrucciones de la cuenta | **sí** | el entorno tenía instrucciones generales configuradas en la cuenta, no específicas de este proyecto, sobre cómo organizar y delegar el trabajo. No se publican. |
+| Herramientas del asistente | **sí** | terminal, lectura y edición de archivos y una pregunta al usuario. Con ellas: scripts de Python para generar y verificar la documentación, Chrome sin interfaz para renderizar los diagramas y los mocks, y `gh` en modo lectura para obtener la plantilla del curso. |
+
 ## Qué se publica
 
 Este registro publica **tres flujos** de la preparación de la entrega. Otros

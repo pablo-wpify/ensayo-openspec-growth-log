@@ -28,6 +28,7 @@ PP-7) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 | Resumen por dimensión con entradas listas visibles, distinguiendo las propias de las compartidas | 4.1–4.3; PP-6 | — |
 | Las entradas privadas de otro líder sobre la misma persona no se muestran ni se cuentan; dos líderes pueden ver resúmenes distintos | 4.11, 4.12 | — |
 | Vista cronológica por fecha del hecho, solo con entradas visibles | 4.13 | — |
+| Filtros por estado, señal y dimensión, con «Limpiar» | 4.6, 4.7 | — |
 | Un borrador propio aparece en la línea de tiempo, pero no en el resumen | 3.3; PP-3 | — |
 | El resumen aclara que no es un puntaje; la calibración es un uso posible y la aplicación no calcula la evaluación | 4.5 | — |
 
@@ -67,7 +68,8 @@ Registrar cada compartición por destinatario es una alternativa sujeta a D2
 | Qué muestra | Criterios y reglas | Decisiones pendientes |
 |---|---|---|
 | Más recientes primero; por defecto, solo listas | 5.1 | — |
-| Filtros por estado, señal y dimensión, con «Limpiar filtros»; el filtro de origen distingue lo propio de lo compartido | 5.2, 4.3 | — |
+| Filtros por estado, señal y dimensión, con «Limpiar» | 5.2 | — |
+| Filtros por **origen** y **persona** | — | **Propuesta por confirmar**: no forman parte de los criterios; si se aceptan, se suman a 5.2 |
 | Solo entradas propias y listas compartidas con el líder; los borradores ajenos nunca aparecen | 5.4, 5.5; PP-3, PP-6 | — |
 | Etiquetas de origen con leyenda: «Tuya · privada» (solo la ve su autora), «Tuya · compartida» (la autora la compartió) y «Compartida con vos» (solo lectura) | 4.3, 4.10 | — |
 | Cada fila lleva a la persona o al detalle | 5.3 | — |

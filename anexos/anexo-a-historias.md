@@ -48,7 +48,7 @@ cuando deja el equipo.
 |---|---|
 | 1.1 | **Dado** que inicié sesión, **cuando** entro en Personas, **entonces** veo las personas activas ordenadas por nombre, con su rol y su equipo. |
 | 1.2 | **Entonces** solo veo las personas que estoy autorizado a acompañar. *(PP-2)* |
-| 1.3 | **Entonces** el conteo de feedbacks de cada persona incluye solo las entradas que puedo ver. *(PP-6)* |
+| 1.3 | **Entonces** el conteo de entradas de cada persona incluye solo las que puedo ver. *(PP-6)* |
 | 1.4 | **Dado** que no hay personas, **cuando** entro en Personas, **entonces** veo un mensaje y un enlace para crear la primera. |
 | 1.5 | **Cuando** creo una persona sin nombre, **entonces** no se guarda y veo el error. |
 | 1.6 | **Cuando** edito el nombre, el rol o el equipo, **entonces** se guardan los cambios. *(D1)* |
@@ -101,9 +101,9 @@ como lista. Sigue siendo privado hasta que lo comparta (PP-3, PP-4).
 
 | # | Criterio de aceptación (propuesto) |
 |---|---|
-| 3.1 | **Cuando** estoy en la ficha de una persona, **entonces** tengo un acceso visible a «Nota rápida». |
-| 3.2 | **Cuando** guardo una nota rápida, **entonces** se guarda como borrador privado de mi autoría, con la fecha de hoy, pidiendo solo el texto. *(PP-3)* |
-| 3.3 | **Dado** un borrador, **entonces** no cuenta en el resumen de la persona ni en su conteo de feedbacks. |
+| 3.1 | **Cuando** estoy en la ficha de una persona, **entonces** tengo un acceso visible a «Captura rápida». |
+| 3.2 | **Cuando** guardo una captura rápida, **entonces** se guarda como borrador privado de mi autoría, con la fecha de hoy, pidiendo solo el texto. *(PP-3)* |
+| 3.3 | **Dado** un borrador, **entonces** no cuenta en el resumen de la persona ni en su conteo de entradas. |
 | 3.4 | **Cuando** edito mi borrador, **entonces** puedo completar la señal, la dimensión y lo demás. |
 | 3.5 | **Cuando** marco como lista un borrador incompleto, **entonces** veo qué falta y el borrador sigue como estaba. |
 | 3.6 | **Cuando** marco como lista un borrador completo, **entonces** pasa a lista **y sigue privada**. *(PP-4)* |
@@ -157,7 +157,7 @@ borradores, tampoco los propios.
 y compartir el mío cuando lo decida, para detectar patrones y coordinarme con
 otros líderes.
 
-**Recorrido.** Entro en «Feedbacks», veo mis entradas y las compartidas
+**Recorrido.** Entro en «Feedback», veo mis entradas y las compartidas
 conmigo, filtro, paso a la persona o al detalle, y comparto una entrada lista.
 
 **Qué entradas entran en el feed (política propuesta, PP-6):** mis entradas
@@ -165,7 +165,7 @@ conmigo, filtro, paso a la persona o al detalle, y comparto una entrada lista.
 
 | # | Criterio de aceptación (propuesto) |
 |---|---|
-| 5.1 | **Cuando** entro en Feedbacks, **entonces** veo las entradas, primero las más recientes, solo las listas por defecto. |
+| 5.1 | **Cuando** entro en «Feedback», **entonces** veo las entradas, primero las más recientes, solo las listas por defecto. |
 | 5.2 | **Cuando** filtro por estado, señal o dimensión, **entonces** la lista se actualiza, y puedo limpiar los filtros. |
 | 5.3 | **Cuando** elijo una entrada, **entonces** puedo ir a la persona o al detalle. |
 | 5.4 | **Entonces** el feed muestra solo mis entradas y las listas compartidas conmigo. *(PP-6)* |

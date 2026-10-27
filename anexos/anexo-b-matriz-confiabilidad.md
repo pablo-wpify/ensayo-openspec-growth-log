@@ -24,7 +24,7 @@ que falta decidir o validar para cumplirlos.
 | 4 | Optimización de la base | Índices para las consultas de visibilidad (autor, persona, destinatario); listados sin consultas repetidas; paginación del feed. | medir con datos de prueba |
 | 5 | Disponibilidad | Chequeo de salud; un arranque en frío aceptable o una instancia siempre encendida. | según el hosting; ADR-7 |
 | 6 | CI/CD y control de versiones | CI en cada pull request (estilo, seguridad, tests) y **despliegue solo con el CI en verde**. | destino de despliegue; ADR-7 |
-| 7 | Balanceo y escalado | Una instancia alcanza para el MVP. | — |
+| 7 | Balanceo y escalado | Una instancia como propuesta inicial, por simplicidad y volumen esperado; el monolito puede ejecutarse en varias. | — |
 | 8 | Errores y monitoreo | Seguimiento de errores **sin contenido de feedback**; logs con el feedback filtrado. | herramienta y si es un servicio externo; ADR-8 |
 | 9 | Seguridad y Row Level Security | Autorización en el servidor, denegar por defecto, con tests de permitido y rechazado; CSP y HTTPS forzados. | si se suma RLS en PostgreSQL como segunda defensa; ADR-5 |
 | 10 | Autenticación y permisos | Cuentas individuales; política PP-1 a PP-7; política de contraseñas; seeds solo en desarrollo. | ADR-2; quién crea las cuentas (D1) |

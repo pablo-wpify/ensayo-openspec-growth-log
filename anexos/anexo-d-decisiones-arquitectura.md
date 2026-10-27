@@ -15,8 +15,11 @@ decida, se completa con la decisión, la fecha y sus consecuencias.
   visibilidad que tiene que aplicarse igual en todas las vistas.
 - **Opciones:** monolito con vistas del servidor; monolito con API JSON y un
   frontend separado; otro framework web con las mismas características.
-- **Criterio:** un único lugar para la autorización; simplicidad de prueba y
-  despliegue; experiencia previa de Pablo.
+- **Criterio:** en todas las opciones la autorización se aplica en el
+  servidor; el monolito evita mantener un contrato de API y coordinar dos
+  aplicaciones. También pesan la simplicidad de prueba y despliegue y la
+  experiencia previa de Pablo. Una instancia es la propuesta inicial; el
+  monolito puede ejecutarse en varias.
 - **Estado:** propuesta.
 
 ## ADR-2. Autenticación

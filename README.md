@@ -153,8 +153,9 @@ de la persona acompañada (D4) y los enlaces de evidencia externos.
 ### 1.3. Diseño y experiencia de usuario
 
 **Propuesto:** una navegación con «Personas» y «Feedback». La ficha de cada
-persona concentra el resumen por dimensión, el acceso a la captura rápida y
-la lista de entradas visibles. Cada entrada muestra si es propia o
+persona concentra el resumen por dimensión, el acceso a la «Captura rápida»
+y la lista de entradas visibles. La sección «Feedback» es el feed con las
+entradas que el líder puede ver. Cada entrada muestra si es propia o
 compartida. Los textos dicen «Marcar como lista» y «Compartir», nunca
 «Publicar», para no confundir marcar como lista con compartir.
 
@@ -173,7 +174,8 @@ criterios y las decisiones pendientes está en el
 ![Mock 1: ficha de una persona con resumen y vista cronológica](anexos/mocks/mock-1-ficha-persona.png)
 
 Resumen por dimensión que distingue entradas propias y compartidas, y vista
-cronológica por fecha del hecho (4.13). La lista de líderes muestra una
+cronológica por fecha del hecho (4.13), con filtros por estado, señal y
+dimensión (4.6). La lista de líderes muestra una
 alternativa de asignación, pendiente de D1. El resumen no es un puntaje.
 
 **2. Captura rápida de feedback (H3)**
@@ -198,9 +200,11 @@ dependen de D2; la pantalla muestra una alternativa.
 ![Mock 4: feed con filtros](anexos/mocks/mock-4-feed.png)
 
 Solo entradas propias y listas compartidas con el líder (PP-6, propuesta),
-con filtros por estado, señal, dimensión y origen, y paginación. Las
-etiquetas de origen distinguen «Tuya · privada», «Tuya · compartida» y
-«Compartida con vos»; la leyenda debajo de la tabla las explica.
+con filtros por estado, señal y dimensión (5.2) y paginación. Las etiquetas
+de origen distinguen «Tuya · privada», «Tuya · compartida» y «Compartida con
+vos»; la leyenda debajo de la tabla las explica. Los filtros de **origen y
+persona** que muestra el mock son **propuestas por confirmar**: no forman
+parte de los criterios actuales.
 
 ### 1.4. Instrucciones de instalación
 
@@ -223,19 +227,14 @@ flowchart TB
   subgraph NAV["Navegador"]
     UI["Interfaz HTML<br/>vistas del servidor + Turbo + Stimulus"]
   end
-  subgraph APP["Monolito Rails (PROPUESTO)"]
+  subgraph APP["Rails propuesto"]
     RT["Rutas y controladores<br/>Personas · Entradas · Compartir · Resumen"]
     AUTH["Autenticación<br/>cuentas individuales"]
     POL["Autorización en el servidor<br/>reglas PP-1 a PP-7, denegar por defecto"]
     SCOPE["Consultas con alcance<br/>solo lo visible para el líder"]
     DOM["Dominio: personas y feedback<br/>estados, validaciones, acompañamientos,<br/>comparticiones"]
-    OUT["Salida a servicios externos<br/>punto de integración por decidir"]
   end
   DB[("PostgreSQL<br/>usuarios, personas, acompañamientos,<br/>entradas, comparticiones")]
-  subgraph EXT["Opcionales (ADR-8)"]
-    MAIL["Correo transaccional<br/>recuperar contraseña"]
-    ERR["Seguimiento de errores<br/>sin contenido de feedback"]
-  end
   UI -- "HTTPS (requisito)" --> RT
   RT --> AUTH
   AUTH --> POL
@@ -244,15 +243,12 @@ flowchart TB
   SCOPE --> DB
   DOM --> DB
   RT -- "HTML y Turbo Streams" --> UI
-  OUT -. "correo, si se incluye" .-> MAIL
-  OUT -. "errores sin feedback, si se incluye" .-> ERR
-  style OUT stroke-dasharray: 5 5
-  style EXT stroke-dasharray: 5 5
 ```
 
-Lo punteado es opcional y está por decidir: el correo y el seguimiento de
-errores son servicios externos propuestos (ADR-8), y qué componente se
-conecta con ellos todavía no está definido.
+**Integraciones opcionales, todavía sin dibujar:** un servicio de correo
+transaccional para recuperar contraseñas y uno de seguimiento de errores, sin
+contenido de feedback (ADR-8). Se agregarán al diagrama cuando se decida si
+se incluyen y qué componente se conecta con ellos.
 
 **Por qué un monolito encaja (propuesto).**
 
@@ -260,12 +256,15 @@ conecta con ellos todavía no está definido.
   servicio es más simple de construir, probar y desplegar.
 - La regla central, quién puede ver qué entrada, vive en un único lugar y se
   aplica igual a vistas, feed y resumen.
-- Las vistas renderizadas en el servidor no exponen datos a un cliente que
-  luego haya que filtrar.
+- Con vistas renderizadas en el servidor no hace falta mantener un contrato
+  de API ni coordinar dos aplicaciones.
 
 **Qué se sacrifica:** no hay una API para otros clientes (por ejemplo, una
-app móvil para la captura rápida), y la escala queda limitada a un servicio.
-Ninguna de las dos cosas hace falta para el MVP.
+app móvil para la captura rápida), algo que el MVP no necesita.
+
+**Escala:** un monolito puede ejecutarse en varias instancias. La propuesta
+inicial es **una sola instancia**, por simplicidad y por el volumen esperado;
+no es una limitación del patrón.
 
 **Responsabilidades:**
 
@@ -294,7 +293,7 @@ ellas, con una única versión de Ruby declarada en todo el repositorio.
 | Elección | Por qué encaja | Alternativa razonable | Qué falta decidir o comprobar |
 |---|---|---|---|
 | **Ruby y Rails** | monolito con convenciones maduras para formularios, sesiones, validaciones y tests; conocido por Pablo | Django; Laravel; Node con un framework full-stack | la versión con soporte vigente y una única versión de Ruby declarada en todo el repositorio |
-| **ERB y Hotwire** (Turbo y Stimulus) | HTML del servidor, con filtros y formularios sin recargar y poco JavaScript | React o Vue con una API JSON, que obliga a duplicar la autorización en una API | si la captura rápida en el teléfono es suficiente como web adaptable (HV-1) |
+| **ERB y Hotwire** (Turbo y Stimulus) | HTML del servidor, con filtros y formularios sin recargar y poco JavaScript | React o Vue con una API JSON: los permisos se siguen aplicando en el servidor, pero separar el frontend agrega un contrato de API y coordinación entre dos aplicaciones | si la captura rápida en el teléfono es suficiente como web adaptable (HV-1) |
 | **PostgreSQL** | restricciones de integridad, índices parciales para comparticiones activas y Row Level Security disponible si se decide | SQLite, más simple pero con menos opciones de concurrencia y de backup gestionado | si se usa RLS (ADR-5); proveedor gestionado con backups (ADR-7) |
 | **Autenticación: Devise** | completa: sesión, recordarme, recuperación, bloqueo por intentos | el generador de autenticación que trae Rails, más simple y con menos funciones; inicio de sesión con un proveedor externo (OAuth) | ADR-2: qué funciones hacen falta (bloqueo por intentos, recuperación) y quién crea las cuentas (D1) |
 | **Autorización: políticas en el servidor** | reglas explícitas y testeables por acción | una biblioteca de políticas (por ejemplo, Pundit o Action Policy) u objetos de política propios | ADR-3: la biblioteca y si un acceso no autorizado responde 404 o 403 |
@@ -316,13 +315,23 @@ el proyecto.
 
 **Propuesto.** Nada de esto existe todavía.
 
+**Proceso de CI y entrega:**
+
 ```mermaid
 flowchart LR
-  BR["Rama de trabajo"] -- "pull request" --> CI["CI: estilo, seguridad,<br/>tests unitarios, de integración y E2E"]
+  BR["Rama de trabajo"] -- "pull request" --> CI["CI<br/>estilo, seguridad y tests"]
   CI -- "en verde" --> MAIN["main"]
-  MAIN -- "solo si el CI pasó" --> DEP["Despliegue<br/>destino por decidir (ADR-7)"]
-  DEP --> RUN["Aplicación Rails"]
-  RUN --> PG[("PostgreSQL gestionado<br/>backups: requisito")]
+  MAIN -- "solo si el CI pasó" --> DEP["Despliegue"]
+```
+
+**Infraestructura donde corre el producto:**
+
+```mermaid
+flowchart LR
+  U["Navegador"] -- "HTTPS" --> APP
+  subgraph HOST["Hosting por decidir (ADR-7)"]
+    APP["Aplicación Rails<br/>una instancia inicial"] --> PG[("PostgreSQL gestionado<br/>backups: requisito")]
+  end
 ```
 
 Requisitos de operación: HTTPS forzado en todos los entornos públicos,
@@ -371,12 +380,12 @@ por destinatario (`ENTRY_SHARE`, sujeta a D2).
 
 ```mermaid
 erDiagram
-  ASSIGNMENT }o--|| PERSON : "es acompañada"
-  ASSIGNMENT }o--|| USER : "acompaña"
+  ASSIGNMENT }o--|| PERSON : "vincula a la persona"
+  ASSIGNMENT }o--|| USER : "vincula al líder"
   PERSON ||--o{ FEEDBACK_ENTRY : "recibe"
-  USER ||--o{ FEEDBACK_ENTRY : "es autor"
-  FEEDBACK_ENTRY ||--o{ ENTRY_SHARE : "se comparte (alternativa, D2)"
-  USER ||--o{ ENTRY_SHARE : "puede leer (alternativa, D2)"
+  USER ||--o{ FEEDBACK_ENTRY : "escribe"
+  FEEDBACK_ENTRY ||--o{ ENTRY_SHARE : "se comparte con (alternativa, D2)"
+  USER ||--o{ ENTRY_SHARE : "es destinatario de (alternativa, D2)"
   USER {
     identifier id PK
     string email UK "not null"
@@ -606,7 +615,7 @@ detectar patrones y coordinarme con otros líderes.
 |---|---|---|---|---|---|
 | H1 | personas, autorización, consultas con alcance | `PERSON`, `ASSIGNMENT` | PP-2; D1 | un líder no asignado no ve ni abre la persona | MVP-DB-1 |
 | H2 | entradas, autorización, dominio | `FEEDBACK_ENTRY` | PP-2 a PP-4 | validaciones; crear sobre una persona no acompañada es rechazado | MVP-DB-1, MVP-BE-1 |
-| H3 | interfaz, entradas, dominio | `FEEDBACK_ENTRY.status` | PP-3; 3.9 | recorrido E2E de captura rápida a lista; lista exige dimensión | MVP-FE-1 |
+| H3 | interfaz, entradas, dominio | `FEEDBACK_ENTRY.status` | PP-3; 3.9 | recorrido E2E de captura rápida a lista; lista exige dimensión | MVP-FE-1, MVP-BE-1 |
 | H4 | resumen, consultas con alcance | `FEEDBACK_ENTRY` (`occurred_on`), compartición, `ASSIGNMENT` | PP-5, PP-6; 4.11 a 4.13 | dos líderes ven resúmenes distintos; la vista cronológica solo incluye entradas visibles | MVP-BE-1 |
 | H5 | feed, compartir, autorización | `ENTRY_SHARE` | PP-4 a PP-6; D2, D3 | compartir un borrador es rechazado; el destinatario lee y no edita | MVP-BE-1, MVP-DB-1 |
 
@@ -642,7 +651,9 @@ dependen de decisiones todavía abiertas.
     fuera de `draft` y `ready`;
   - no se pueden duplicar un acompañamiento activo ni una compartición
     activa;
-  - las migraciones se revierten en desarrollo sin pérdida;
+  - la reversión de cada migración se comprueba en una base descartable;
+    revertir una migración que elimina tablas o columnas borra sus datos, así
+    que nunca se revierte sobre datos reales sin un backup;
   - los tests de modelo pasan en el CI.
 - **Fuera de alcance:** hacer cumplir las reglas en controladores y vistas
   (MVP-BE-1).
@@ -678,7 +689,9 @@ dependen de decisiones todavía abiertas.
 ### MVP-FE-1. Captura rápida accesible desde la ficha (frontend)
 
 - **Historia:** H3. **Hipótesis relacionada:** HV-1.
-- **Depende de:** MVP-DB-1.
+- **Depende de:** MVP-DB-1, para guardar el borrador, y MVP-BE-1, para que
+  sea privado de su autor. La interfaz puede maquetarse antes, pero la
+  integración funcional requiere los dos.
 - **Contexto:** la captura rápida solo sirve si está a la vista desde la
   ficha; sin un acceso visible, no se usa.
 - **Pasos:**
@@ -725,7 +738,7 @@ matriz completa está en el
 | 4 | Optimización de la base | índices para las consultas de visibilidad; paginación | medir con datos de prueba |
 | 5 | Disponibilidad | chequeo de salud | según el hosting (ADR-7) |
 | 6 | CI/CD | CI en cada PR; despliegue solo en verde | destino de despliegue (ADR-7) |
-| 7 | Balanceo y escalado | una instancia alcanza | — |
+| 7 | Balanceo y escalado | una instancia como propuesta inicial; el monolito admite varias | cuándo hacen falta más instancias |
 | 8 | Errores y monitoreo | seguimiento de errores sin contenido de feedback | herramienta (ADR-8) |
 | 9 | Seguridad y RLS | autorización en el servidor, denegar por defecto | RLS como segunda defensa (ADR-5) |
 | 10 | Autenticación y permisos | cuentas individuales y política PP | autenticación (ADR-2); quién crea las cuentas (D1) |
@@ -746,6 +759,15 @@ Ningún requisito está implementado todavía.
 | D3 | **Escalar:** si hace falta algo más que compartir, por ejemplo escalar un caso. | H5 |
 | D4 | **Acceso de la persona acompañada** a su propio feedback. | ninguno del MVP |
 | D5 | **Salida de un autor:** cómo se conservan o transfieren sus entradas (PP-7). | MVP-DB-1 |
+
+**Alternativas mínimas para D1, D2 y D5.** Son **recomendaciones para que
+Pablo decida**, no decisiones tomadas.
+
+| # | Pregunta para Pablo | Alternativa mínima recomendada | Consecuencias en historias, permisos y modelo |
+|---|---|---|---|
+| D1 | ¿Quién crea las cuentas, asigna líderes a personas y edita los datos de una persona? | Un administrador (puede ser Pablo) crea cuentas, personas y asignaciones. Los líderes no se asignan solos. | **Historias:** H1 separa administrar (alta y asignación) de usar (ver las personas asignadas); resuelve 1.6 y 1.12. **Permisos:** un rol de administrador además de líder. **Modelo:** un rol en `USER` y `ASSIGNMENT` con `ended_at`. |
+| D2 | ¿Con quién se puede compartir una entrada y cómo se revoca? | Solo con líderes que acompañan a la misma persona, de a uno. Revocar marca la compartición con `revoked_at` y quita la lectura de inmediato. | **Historias:** permite especificar 5.6 y 5.7; el mock 3 ya muestra esta alternativa. **Permisos:** se lee si se es autor o hay una compartición activa con un líder asignado; si termina la asignación, se pierde la lectura. **Modelo:** `ENTRY_SHARE` por destinatario, con `revoked_at`. |
+| D5 | ¿Qué pasa con las entradas de un líder que deja el equipo? | Desactivar su cuenta en lugar de borrarla. Sus entradas se conservan y quienes ya las tenían compartidas las siguen leyendo; sin transferencia en el MVP. | **Historias:** no agrega historias; define PP-7. **Permisos:** un usuario desactivado no inicia sesión, y sus entradas no compartidas quedan sin lector (consecuencia a aceptar). **Modelo:** `USER.deactivated_at`; no se borran usuarios con entradas. |
 
 ### 9.2. Decisiones de arquitectura y de producto
 
@@ -790,7 +812,7 @@ fase tiene una verificación humana o automática.
 | 1. Decisiones | resolver D1, D2, D5 y los ADR abiertos | comparar opciones con sus consecuencias | Pablo decide y se registra en un ADR |
 | 2. Especificación ejecutable | criterios de aceptación → tests que fallan | proponer tests desde los criterios | Pablo revisa que cada test refleje su criterio |
 | 3. Modelo y autorización | MVP-DB-1 y MVP-BE-1 primero | implementar hasta pasar los tests | CI en verde; test de cobertura de la política |
-| 4. Historias | H2 y H3, luego H4, H5 y H1 | implementar e iterar | tests de cada criterio y el E2E |
+| 4. Historias | H1 (ficha y asignaciones válidas) como base; luego H2 y H3; después H4 y H5 | implementar e iterar | tests de cada criterio y el E2E |
 | 5. Operación | CI como condición, despliegue y backups | configurar el pipeline | una restauración de backup probada |
 | 6. Validación | pruebas de uso y piloto | preparar guiones y resumir resultados | HV-1 a HV-4 contrastadas con usuarios |
 
