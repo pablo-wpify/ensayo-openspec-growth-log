@@ -8,7 +8,7 @@ se prepararon con ayuda de ChatGPT (según lo declarado por Pablo; esas
 conversaciones no se conservan) y se ejecutaron en Claude Code (CLI) con
 Claude Opus 5.5 (comprobado en la transcripción).
 
-**Nota de sanitización.** Se publican tres prompts de la preparación de la
+**Nota de sanitización.** Se publican cuatro prompts de la preparación de la
 entrega; otros no se incluyen en esta versión pública. Cambios respecto del
 original:
 
@@ -16,7 +16,7 @@ original:
   del PDF de la visión por `[ruta local del PDF]`;
 - se omitieron fragmentos que no corresponden a esta versión pública,
   marcados como `[fragmento omitido]` en el lugar donde estaban;
-- en los flujos 2 y 3 se quitaron las marcas técnicas de texto pegado.
+- en los flujos 2, 3 y 4 se quitaron las marcas técnicas de texto pegado.
 
 Los prompts usan algunos nombres provisorios de borradores anteriores de la
 documentación: «TK-4» es el ticket de base de datos que en la entrega se
@@ -216,6 +216,95 @@ Mostranos:
 
 [fragmento omitido]
 No hagas fork, commits, push, PR ni publicación.
+```
+## Flujo 4. Decisiones de administración, compartición y salida de un autor
+
+Enviado el 27/10/2026 a las 23:51 UTC.
+
+```text
+Acepto estas decisiones para el MVP de Growth Log. Registralas como
+decisiones de Pablo y alineá la entrega con ellas.
+
+Trabajá en feature/entrega-1-pp-mvp, cuyo HEAD esperado es:
+ee84919c2514945e7aade68c7c50fc6c1d053269
+
+Confirmá primero la rama y el estado. No crees otra rama.
+
+D1. Administración
+- Un administrador crea cuentas, crea y edita personas, asigna líderes
+  y termina sus asignaciones.
+- Los líderes consultan las personas asignadas y registran feedback.
+  No crean personas ni modifican sus datos o asignaciones.
+- Una persona puede tener varios líderes.
+- Ser administrador no permite leer todo el feedback. Para consultar
+  entradas se aplican las mismas reglas de autoría y compartición.
+- Una misma cuenta puede administrar y acompañar personas.
+- Para el MVP, la cuenta administradora inicial se provisionará mediante
+  un procedimiento documentado, sin credenciales fijas en el repositorio.
+
+D2. Compartición
+- Solo el autor puede compartir una entrada propia y lista.
+- Se comparte individualmente con cuentas activas de líderes que
+  acompañan actualmente a esa persona.
+- El destinatario puede leer, pero no editar ni volver a compartir.
+- Revocar registra revoked_at y quita el permiso en las siguientes
+  consultas. No puede retirar información que alguien ya haya leído.
+- Terminar la asignación del destinatario también quita el acceso.
+- Si vuelve a ser asignado, las comparticiones anteriores no recuperan
+  vigencia automáticamente: el autor debe compartir nuevamente.
+- Las operaciones deben comprobar estas condiciones en el servidor,
+  incluidas las peticiones directas por URL.
+
+D5. Salida de un autor
+- Se desactiva la cuenta; no se borra.
+- Se impiden nuevos inicios de sesión y se invalidan las sesiones
+  existentes.
+- Se conservan las entradas y su autoría.
+- Las entradas compartidas siguen disponibles para destinatarios activos
+  que mantengan asignación y permiso.
+- Las privadas se conservan sin acceso ordinario, tampoco para el
+  administrador.
+- No hay transferencia de autoría ni recuperación administrativa de
+  entradas privadas en este MVP.
+
+Qué actualizar:
+1. README, política PP, decisiones D1/D2/D5 y ADR relacionados.
+2. H1: separar explícitamente las acciones del administrador de las del
+   líder. Conservá cinco historias y ajustá los criterios necesarios,
+   sin mantener artificialmente el conteo actual.
+3. Modelo de datos y reglas: expresar capacidades administrativas,
+   asignaciones, desactivación y comparticiones. Asegurar que una nueva
+   asignación no reactive permisos antiguos.
+4. Tickets: cubrir la administración mínima necesaria para habilitar el
+   recorrido, las dependencias y las pruebas de permisos.
+5. Mocks y sus notas: alinearlos con las decisiones aceptadas. No hace
+   falta agregar pantallas; identificá si queda alguna acción del
+   administrador sin ilustrar.
+6. Riesgos y matriz: actualizar consecuencias y decisiones resueltas.
+7. Registro de IA: registrar este pedido y su resultado conforme al
+   formato existente, sin superar los cinco workflows principales.
+
+Incluí casos de prueba propuestos para:
+- administrador sin permiso de lectura;
+- destinatario que intenta editar o compartir;
+- revocación;
+- fin de asignación y posterior reasignación;
+- desactivación con una sesión previamente abierta;
+- permanencia de la autoría y de las comparticiones válidas cuando
+  se desactiva al autor.
+
+No inventes decisiones adicionales. Si aparece una ambigüedad que afecte
+permisos, señalala y proponé una resolución sin darla por aceptada.
+
+Revisá coherencia completa, conteos, enlaces, diagramas renderizados,
+mocks y datos sensibles. Hacé un commit local nuevo y mostrame:
+- hash y estado final;
+- cambios principales;
+- decisiones que siguen abiertas;
+- cualquier contradicción pendiente.
+
+No crees fork ni remotos, no hagas push ni PR y no completes el
+formulario. [fragmento omitido]
 ```
 
 ---

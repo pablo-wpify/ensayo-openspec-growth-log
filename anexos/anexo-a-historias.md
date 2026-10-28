@@ -1,22 +1,24 @@
 # Anexo A. Historias de usuario en detalle
 
-> Anexo de la primera entrega de Growth Log. Los 52 criterios de aceptación
-> del MVP, todos **propuestos**. El resumen está en la
+> Anexo de la primera entrega de Growth Log. Los 59 criterios de aceptación
+> del MVP, todos **propuestos**; los que aplican D1, D2 y D5 siguen
+> decisiones de Pablo. El resumen está en la
 > [sección 5 del README](../README.md#5-historias-de-usuario).
 
-## Política de privacidad propuesta y criterios que la aplican
+## Política de privacidad y criterios que la aplican
 
-**Propuesta para el MVP; todavía no está implementada.**
+**Incorpora las decisiones D1, D2 y D5 de Pablo; nada está implementado.**
 
-| # | Regla propuesta | Criterios |
+| # | Regla | Criterios |
 |---|---|---|
-| PP-1 | Cada líder tiene su propia cuenta. | todas |
-| PP-2 | Un líder accede a la ficha de una persona si está autorizado a acompañarla. Una persona puede tener más de un líder. | 1.2, 1.9–1.11, 2.10, 4.11 |
-| PP-3 | Los borradores solo los ve, edita y marca como listos su autor. | 3.8, 5.5 |
+| PP-1 | Cada líder tiene su propia cuenta. Las cuentas las crea un administrador (D1). | 1.1 |
+| PP-2 | Un líder accede a la ficha de una persona solo mientras tiene una asignación activa con ella. Una persona puede tener varios líderes (D1). | 1.6, 1.7, 1.10, 1.13, 1.14, 2.10, 4.11 |
+| PP-3 | Los borradores solo los ve, edita y marca como listos su autor. | 3.2, 3.8, 5.5 |
 | PP-4 | Una entrada lista sigue siendo privada del autor hasta que este decida compartirla. | 2.9, 3.6, 3.9, 4.9, 4.11 |
-| PP-5 | Una entrada compartida la pueden leer los líderes autorizados a recibirla; solo su autor la edita. | 4.3, 4.10, 5.6 |
-| PP-6 | El feed y el resumen de una persona muestran únicamente las entradas que el líder tiene permiso para ver. | 1.3, 4.2, 4.6, 4.12, 5.4 |
-| PP-7 | Si un líder deja el equipo o pierde su cuenta, sus entradas no se borran automáticamente. Cómo se conserva o transfiere el acceso queda pendiente de diseño (D5). | — |
+| PP-5 | Solo el autor comparte una entrada propia y lista, de a un destinatario: un líder con cuenta activa que acompaña actualmente a la persona. El destinatario la lee mientras su cuenta siga activa, mantenga la asignación y la compartición no esté revocada; no la edita ni la vuelve a compartir (D2). | 1.7, 4.3, 4.10, 5.6, 5.7, 5.9, 5.10 |
+| PP-6 | El feed y el resumen de una persona muestran únicamente las entradas que el líder tiene permiso para ver. | 1.11, 4.2, 4.6, 4.12, 5.4 |
+| PP-7 | Si un autor deja el equipo, su cuenta se desactiva y no se borra: no puede iniciar sesión y sus sesiones abiertas se invalidan. Sus entradas y su autoría se conservan; las compartidas siguen disponibles para destinatarios con permiso vigente y las privadas quedan sin acceso ordinario, también para el administrador (D5). | 1.9, 5.11 |
+| PP-8 | Un administrador crea cuentas, crea y edita personas, y asigna y termina asignaciones. Administrar no da permiso para leer entradas. Una misma cuenta puede administrar y acompañar personas (D1). | 1.1–1.5, 1.8, 1.15, 1.16 |
 
 **Criterios propuestos que se desprenden de la política** (incorporados a
 las historias):
@@ -33,31 +35,51 @@ entrada está completa (de PP-4).
 ## Historias
 
 Todos los criterios son **propuestos**. Entre paréntesis, la regla de la
-política (PP) o la decisión abierta (D) de la que dependen.
+política (PP), la decisión (D) o la ambigüedad abierta (AM) de la que
+dependen.
 
-### H1. Mantener la lista de personas que acompaño
+### H1. Administrar personas y asignaciones, y consultar las personas que acompaño
 
-**Objetivo.** Como líder, quiero tener al día la lista de personas que
-acompaño, para registrar feedback sobre cada una.
+**Objetivo.** Como administrador, quiero crear cuentas y personas y asignar
+líderes, para que cada líder acompañe a quienes le corresponden. Como líder,
+quiero ver las personas que tengo asignadas, para registrar feedback sobre
+cada una.
 
-**Recorrido.** Entro en «Personas», veo las activas que estoy autorizado a
-acompañar, abro su ficha, creo o edito una persona y la marco como inactiva
-cuando deja el equipo.
+**Recorrido del administrador.** Crea la cuenta de un líder, crea una
+persona, la asigna a uno o más líderes y, cuando corresponde, termina una
+asignación, da de baja a la persona o desactiva una cuenta.
+
+**Recorrido del líder.** Entra en «Personas», ve las personas activas que
+tiene asignadas y abre su ficha.
+
+**Cuenta administradora inicial:** se crea con un procedimiento documentado,
+sin credenciales fijas en el repositorio (D1).
+
+**Acciones del administrador:**
 
 | # | Criterio de aceptación (propuesto) |
 |---|---|
-| 1.1 | **Dado** que inicié sesión, **cuando** entro en Personas, **entonces** veo las personas activas ordenadas por nombre, con su rol y su equipo. |
-| 1.2 | **Entonces** solo veo las personas que estoy autorizado a acompañar. *(PP-2)* |
-| 1.3 | **Entonces** el conteo de entradas de cada persona incluye solo las que puedo ver. *(PP-6)* |
-| 1.4 | **Dado** que no hay personas, **cuando** entro en Personas, **entonces** veo un mensaje y un enlace para crear la primera. |
-| 1.5 | **Cuando** creo una persona sin nombre, **entonces** no se guarda y veo el error. |
-| 1.6 | **Cuando** edito el nombre, el rol o el equipo, **entonces** se guardan los cambios. *(D1)* |
-| 1.7 | **Cuando** desmarco «Activo», **entonces** la persona deja de aparecer en el listado y conserva su historial. |
-| 1.8 | **Dado** que hay personas inactivas, **cuando** las busco, **entonces** puedo verlas y reactivarlas. |
-| 1.9 | **Cuando** abro una persona que estoy autorizado a acompañar, **entonces** veo su ficha. |
-| 1.10 | **Cuando** intento abrir o editar una persona que no estoy autorizado a acompañar, **entonces** no accedo. *(PP-2)* |
-| 1.11 | **Dado** que una persona tiene más de un líder, **entonces** cada uno accede a su ficha. *(PP-2)* |
-| 1.12 | **Cuando** se crea una persona, **entonces** queda asignada a uno o más líderes según la regla que se decida. *(D1)* |
+| 1.1 | **Dado** que soy administrador, **cuando** creo una cuenta, **entonces** queda activa y su titular puede iniciar sesión. *(PP-1, PP-8; AM-5)* |
+| 1.2 | **Cuando** creo una persona sin nombre, **entonces** no se guarda y veo el error. *(PP-8)* |
+| 1.3 | **Cuando** creo o edito una persona, **entonces** se guardan su nombre, su rol y su equipo. *(PP-8, D1)* |
+| 1.4 | **Cuando** doy de baja a una persona, **entonces** deja de aparecer en los listados y conserva su historial. *(PP-8)* |
+| 1.5 | **Dado** que hay personas inactivas, **cuando** las busco, **entonces** puedo verlas y reactivarlas. *(PP-8)* |
+| 1.6 | **Cuando** asigno un líder activo a una persona, **entonces** ese líder accede a su ficha; una persona puede tener varios líderes. *(PP-2, D1)* |
+| 1.7 | **Cuando** termino una asignación, **entonces** el líder deja de acceder a la ficha y a las entradas compartidas con él sobre esa persona, también por URL directa. *(PP-2, PP-5, D2)* |
+| 1.8 | **Dado** que soy administrador, **entonces** serlo no me permite leer entradas: solo veo las que escribí o me compartieron como líder asignado. *(PP-8, D1)* |
+| 1.9 | **Cuando** se desactiva una cuenta, **entonces** no puede iniciar sesión y sus sesiones abiertas dejan de valer. *(PP-7, D5; AM-2)* |
+
+**Acciones del líder:**
+
+| # | Criterio de aceptación (propuesto) |
+|---|---|
+| 1.10 | **Dado** que inicié sesión, **cuando** entro en Personas, **entonces** veo solo las personas activas que tengo asignadas, ordenadas por nombre, con su rol y su equipo. *(PP-2)* |
+| 1.11 | **Entonces** el conteo de entradas de cada persona incluye solo las que puedo ver. *(PP-6)* |
+| 1.12 | **Dado** que no tengo personas asignadas, **cuando** entro en Personas, **entonces** veo un mensaje que lo explica. |
+| 1.13 | **Cuando** abro una persona que tengo asignada, **entonces** veo su ficha. *(PP-2)* |
+| 1.14 | **Cuando** intento abrir una persona sin asignación activa, incluso por URL directa, **entonces** no accedo. *(PP-2)* |
+| 1.15 | **Cuando** intento crear una persona, editar sus datos o cambiar una asignación sin ser administrador, **entonces** no puedo. *(PP-8, D1)* |
+| 1.16 | **Dado** que mi cuenta administra y además tengo personas asignadas, **entonces** como líder veo solo esas personas y sus entradas visibles, y como administrador gestiono personas y asignaciones sin leer entradas ajenas. *(PP-8, D1)* |
 
 - **Fuera de la historia:** borrar una persona (backlog).
 
@@ -83,7 +105,7 @@ parte de H5 (criterio 5.6).
 | 2.7 | **Cuando** creo una entrada, **entonces** puedo guardarla como borrador o como lista. |
 | 2.8 | **Cuando** guardo, **entonces** quedo registrado como autor, y se ve en el detalle. |
 | 2.9 | **Cuando** guardo una entrada, borrador o lista, **entonces** queda **privada**: solo yo la veo. *(PP-3, PP-4)* |
-| 2.10 | **Cuando** registro feedback sobre una persona, **entonces** tiene que ser una que estoy autorizado a acompañar. *(PP-2)* |
+| 2.10 | **Cuando** registro feedback sobre una persona, **entonces** tiene que ser una con la que tengo una asignación activa. *(PP-2)* |
 
 - **Fuera de la historia (backlog):** etiquetas editables, enlaces de evidencia
   y autor externo.
@@ -158,7 +180,8 @@ y compartir el mío cuando lo decida, para detectar patrones y coordinarme con
 otros líderes.
 
 **Recorrido.** Entro en «Feedback», veo mis entradas y las compartidas
-conmigo, filtro, paso a la persona o al detalle, y comparto una entrada lista.
+conmigo, filtro, paso a la persona o al detalle, comparto una entrada lista
+con otro líder de esa persona y, si hace falta, revoco la compartición.
 
 **Qué entradas entran en el feed (política propuesta, PP-6):** mis entradas
 (borradores y listas) y las listas que otros compartieron conmigo.
@@ -170,13 +193,15 @@ conmigo, filtro, paso a la persona o al detalle, y comparto una entrada lista.
 | 5.3 | **Cuando** elijo una entrada, **entonces** puedo ir a la persona o al detalle. |
 | 5.4 | **Entonces** el feed muestra solo mis entradas y las listas compartidas conmigo. *(PP-6)* |
 | 5.5 | **Entonces** los borradores que veo son solo los míos. *(PP-3)* |
-| 5.6 | **Cuando** decido compartir una entrada lista mía, **entonces** la ven los líderes autorizados a recibirla. *(PP-4, PP-5, D2, D3)* |
-| 5.7 | **Cuando** dejo de compartir una entrada, **entonces** deja de verla quien la recibió. *(D2)* |
+| 5.6 | **Cuando** comparto una entrada lista mía, **entonces** lo hago de a un destinatario, solo con cuentas activas de líderes que acompañan actualmente a esa persona, y el destinatario puede leerla. *(PP-4, PP-5, D2)* |
+| 5.7 | **Cuando** revoco una compartición, **entonces** queda registrada la revocación y el destinatario deja de verla en sus siguientes consultas; lo que ya leyó no se puede retirar. *(D2)* |
 | 5.8 | **Dado** que hay muchas entradas, **entonces** el listado se pagina. |
+| 5.9 | **Dado** que recibí una entrada compartida, **cuando** intento editarla o volver a compartirla, incluso por URL directa, **entonces** no puedo. *(PP-5, D2)* |
+| 5.10 | **Dado** que terminó mi asignación con una persona, **entonces** dejo de ver las entradas que me compartieron sobre ella; si me vuelven a asignar, no las recupero hasta que el autor las comparta de nuevo. *(D2)* |
+| 5.11 | **Dado** que el autor de una entrada compartida conmigo fue desactivado, **entonces** la sigo viendo, con su autoría, mientras mantenga la asignación y el permiso. *(PP-7, D5; AM-3)* |
 
-**Nota.** 5.6 y 5.7 no se pueden especificar del todo hasta resolver D2 y D3.
-Hasta entonces, 5.4 y 5.5 sí se pueden especificar: no dependen de cómo se
-comparte, sino de que todo es privado salvo lo compartido.
+**Nota.** D2 está decidida. D3 (escalar) sigue abierta y no cambia estos
+criterios.
 
 
 

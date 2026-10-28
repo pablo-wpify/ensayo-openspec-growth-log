@@ -2,10 +2,10 @@
 
 > Anexo de la primera entrega de Growth Log. Relaciona cada mock de la
 > [sección 1.3 del README](../README.md#13-diseño-y-experiencia-de-usuario)
-> con los criterios de aceptación y las decisiones pendientes.
+> con los criterios de aceptación y las decisiones.
 
-**Qué son.** Diseño propuesto para el MVP; los permisos y la compartición
-aquí mostrados son propuestas. Las imágenes **no son capturas** de un sistema
+**Qué son.** Diseño propuesto para el MVP. Los permisos y la compartición
+que muestran siguen las decisiones D1 y D2, pero no están implementados. Las imágenes **no son capturas** de un sistema
 existente: la aplicación todavía no está construida.
 
 **Datos.** Todos los nombres, equipos y feedback son inventados (Elena
@@ -16,15 +16,15 @@ por confirmar.
 **Textos de la interfaz.** Cada imagen lleva la marca «Mock — propuesta del MVP · Datos ficticios».
 Las pantallas usan mensajes para el usuario
 («Solo vos podés ver este borrador»). Las referencias a la política (PP-1 a
-PP-7) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
+PP-8) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 
 ## Mock 1. Ficha de una persona
 
 ![Mock 1: ficha de una persona](mocks/mock-1-ficha-persona.png)
 
-| Qué muestra | Criterios y reglas | Decisiones pendientes |
+| Qué muestra | Criterios y reglas | Decisiones |
 |---|---|---|
-| Solo aparecen personas que el líder acompaña; una persona puede tener varios líderes | 1.2, 1.9–1.11; PP-2 | Quién asigna líderes y si hay administradores: **D1**. La lista de líderes de la ficha muestra una alternativa. |
+| Vista del líder: solo personas con asignación activa; una persona puede tener varios líderes | 1.10, 1.13, 1.16; PP-2 | **D1, decidida:** las asignaciones las gestiona un administrador; esa pantalla no está ilustrada |
 | Resumen por dimensión con entradas listas visibles, distinguiendo las propias de las compartidas | 4.1–4.3; PP-6 | — |
 | Las entradas privadas de otro líder sobre la misma persona no se muestran ni se cuentan; dos líderes pueden ver resúmenes distintos | 4.11, 4.12 | — |
 | Vista cronológica por fecha del hecho, solo con entradas visibles | 4.13 | — |
@@ -36,7 +36,7 @@ PP-7) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 
 ![Mock 2: captura rápida](mocks/mock-2-captura-rapida.png)
 
-| Qué muestra | Criterios y reglas | Decisiones pendientes |
+| Qué muestra | Criterios y reglas | Decisiones |
 |---|---|---|
 | Acceso visible desde la ficha con el botón «Captura rápida» | 3.1; MVP-FE-1 | — |
 | Solo pide el texto; la fecha viene con el día de hoy | 3.2 | — |
@@ -48,24 +48,23 @@ PP-7) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 
 ![Mock 3: entrada lista y compartir](mocks/mock-3-compartir-entrada.png)
 
-| Qué muestra | Criterios y reglas | Decisiones pendientes |
+| Qué muestra | Criterios y reglas | Decisiones |
 |---|---|---|
 | La entrada está lista y **sin compartir**: «lista» no es «compartida» | 2.9, 3.6; PP-4 | — |
 | Franco Ensayo está **seleccionado** (casilla con tilde), pero la acción no se confirmó: la entrada sigue sin destinatarios hasta pulsar «Compartir» y «Compartida con» dice «nadie todavía» | 5.6 | — |
-| Destinatarios: líderes que acompañan a la persona | 5.6 | **Alternativa propuesta**, pendiente de **D2**: quiénes pueden recibirla |
-| Compartir da permiso de lectura; solo la autora edita | 4.10; PP-5 | — |
-| «Dejar de compartir» aparece deshabilitado porque no hay comparticiones | 5.7 | Cómo se revoca: **D2**. Si hace falta algo más que compartir, como escalar: **D3** |
+| Destinatarios: líderes activos que acompañan a la persona; se comparte de a uno | 5.6 | **D2, decidida** |
+| Compartir da permiso de lectura; solo la autora edita y comparte; el destinatario no vuelve a compartir | 4.10, 5.9; PP-5 | **D2, decidida** |
+| «Dejar de compartir» aparece deshabilitado porque no hay comparticiones | 5.7 | **D2, decidida:** revocar registra `revoked_at`. Escalar sigue abierto (**D3**) |
 | Un borrador no muestra la sección «Compartir» | 3.9 | — |
-| Qué pasa con la entrada si la autora deja el equipo | PP-7 | **D5** |
+| Qué pasa con la entrada si la autora deja el equipo | PP-7, 5.11 | **D5, decidida:** se conserva con su autoría; pendiente AM-3 |
 
-Registrar cada compartición por destinatario es una alternativa sujeta a D2
-(ADR-4).
+Registrar cada compartición por destinatario está decidido por D2 (ADR-4).
 
 ## Mock 4. Feed con filtros
 
 ![Mock 4: feed con filtros](mocks/mock-4-feed.png)
 
-| Qué muestra | Criterios y reglas | Decisiones pendientes |
+| Qué muestra | Criterios y reglas | Decisiones |
 |---|---|---|
 | Más recientes primero; por defecto, solo listas | 5.1 | — |
 | Filtros por estado, señal y dimensión, con «Limpiar» | 5.2 | — |
@@ -74,6 +73,18 @@ Registrar cada compartición por destinatario es una alternativa sujeta a D2
 | Etiquetas de origen con leyenda: «Tuya · privada» (solo la ve su autora), «Tuya · compartida» (la autora la compartió) y «Compartida con vos» (solo lectura) | 4.3, 4.10 | — |
 | Cada fila lleva a la persona o al detalle | 5.3 | — |
 | Paginación | 5.8 | — |
+
+## Acciones sin ilustrar
+
+Los cuatro mocks muestran el recorrido del líder. No hay pantallas para:
+
+- las acciones del administrador: crear cuentas, crear y editar personas,
+  asignar y terminar asignaciones, dar de baja personas y desactivar cuentas
+  (H1, criterios 1.1 a 1.9; MVP-BE-2);
+- la revocación de una compartición vigente (5.7) ni la vista de un
+  destinatario cuyo acceso terminó (5.10).
+
+Quedan especificadas en los criterios y en los tickets.
 
 ---
 

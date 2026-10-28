@@ -29,12 +29,15 @@ decida, se completa con la decisión, la fecha y sus consecuencias.
 - **Opciones:** Devise; el generador de autenticación de Rails más funciones
   propias; un proveedor externo (OAuth).
 - **Criterio:** funciones necesarias sin código propio sensible; si la
-  recuperación exige correo (ADR-8); quién crea las cuentas (D1).
+  recuperación exige correo (ADR-8); alta de cuentas por un administrador y
+  procedimiento para la cuenta administradora inicial sin credenciales fijas
+  (D1); invalidar las sesiones de una cuenta desactivada (D5); cómo recibe su
+  acceso inicial una cuenta nueva (AM-5).
 - **Estado:** abierta.
 
 ## ADR-3. Implementación de las políticas y respuesta ante acceso no autorizado
 
-- **Contexto:** PP-2 a PP-6 se aplican en el servidor y tienen que poder
+- **Contexto:** PP-2 a PP-8 se aplican en el servidor y tienen que poder
   testearse por acción.
 - **Opciones de implementación:** una biblioteca de políticas, como Pundit o
   Action Policy; objetos de política propios.
@@ -53,22 +56,26 @@ decida, se completa con la decisión, la fecha y sus consecuencias.
   entrada; grupos de destinatarios.
 - **Criterio:** permite responder «¿con quién está compartida?» y auditar
   revocaciones; coherencia con 4.11 y 4.12.
-- **Estado:** abierta. Alternativa propuesta para evaluar primero: filas por
-  destinatario. **No está resuelta:** depende de D2.
+- **Estado:** **decidida por D2** (27/10/2026): una fila por entrada y
+  destinatario, con `revoked_at`.
+- **Propuesta adicional, no decidida:** ligar cada fila a la asignación del
+  destinatario (`assignment_id`). Así, terminar la asignación corta el acceso y
+  una reasignación, que crea una asignación nueva, no reactiva comparticiones
+  anteriores, como exige D2.
 
-## Alternativas para la salida de un autor (sujetas a D5)
+## Salida de un autor (decidida por D5)
 
-No es un ADR propio: depende de la decisión de producto D5. Se registra aquí
-porque condiciona el modelo de datos.
+No es un ADR propio: es una decisión de producto que condiciona el modelo.
 
-- **Desactivar al autor en lugar de borrarlo** (alternativa propuesta): sus
-  entradas se conservan y siguen legibles para quienes ya las tenían
-  compartidas.
-- **Transferir sus entradas** a otro líder de la persona.
-- **Archivar sus entradas:** se conservan, pero nadie las ve hasta que se
-  decida otra cosa.
-
-**Estado:** abierta; sujeta a D5.
+- **Decisión de Pablo (27/10/2026):** se desactiva la cuenta y no se borra; se
+  impiden nuevos inicios de sesión y se invalidan las sesiones abiertas; se
+  conservan las entradas y su autoría; las compartidas siguen disponibles
+  para destinatarios con permiso vigente; las privadas quedan sin acceso
+  ordinario, también para el administrador.
+- **Descartadas para el MVP:** transferir la autoría y la recuperación
+  administrativa de entradas privadas.
+- **Pendiente:** quién desactiva (AM-2) y qué pasa con las comparticiones
+  vigentes de un autor desactivado (AM-3).
 
 ## ADR-5. Row Level Security en PostgreSQL
 

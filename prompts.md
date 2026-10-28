@@ -37,7 +37,7 @@ transcripción de la sesión y los archivos de configuración:
 
 ## Qué se publica
 
-Este registro publica **tres flujos** de la preparación de la entrega. Otros
+Este registro publica **cuatro flujos** de la preparación de la entrega. Otros
 flujos de la misma preparación (por ejemplo, la elaboración de los mocks y
 las revisiones de la documentación) **no se incluyen** en esta versión
 pública. Dentro de los prompts publicados, los fragmentos omitidos están
@@ -50,6 +50,7 @@ marcados como «[fragmento omitido]»; el resto es literal.
 | 1 | Política de privacidad para varios líderes | diseño de producto | 1.2, 2.5, 3, 5 | PP-1 a PP-7 propuestas, criterios y decisiones D1 a D5 |
 | 2 | La presentación como fuente de la visión | producto | 1.1 | problema, destinatarios e hipótesis de valor HV-1 a HV-6 |
 | 3 | Arquitectura, modelo de datos y stack | diseño técnico | 2, 3, 4, 6 | arquitectura, modelo conceptual, stack con alternativas, tickets y ADR |
+| 4 | Decisiones de administración, compartición y salida de un autor | decisiones de producto | 1.2, 2.5, 2.6, 3, 5, 6 | D1, D2 y D5 registradas, H1 separada, modelo, ticket MVP-BE-2, casos PT-1 a PT-6 y ambigüedades AM-1 a AM-5 |
 
 ---
 
@@ -152,6 +153,42 @@ borradores de ADR (Anexo D).
   evidencia, tratar la calibración como un uso posible sin puntaje calculado
   y presentar la desactivación de autores y las filas de compartición como
   alternativas sujetas a D5 y D2.
+
+---
+
+## Flujo 4. Decisiones de administración, compartición y salida de un autor
+
+*Secciones 1.2, 2.5, 2.6, 3, 5 y 6 de la plantilla.*
+
+| Campo | Detalle |
+|---|---|
+| Fase | decisiones de producto y alineación de la documentación |
+| Herramientas | Ejecución: Claude Code (CLI) con Claude Opus 5.5 (`claude-opus-5-5`), comprobado en la transcripción. Preparación del pedido: con ayuda de ChatGPT, según lo declarado por Pablo; sin registro propio. Objetivo y decisiones: Pablo. |
+| Fecha | 27/10/2026 |
+
+**Extracto literal:**
+
+> - Ser administrador no permite leer todo el feedback. Para consultar
+>   entradas se aplican las mismas reglas de autoría y compartición.
+>
+> No inventes decisiones adicionales. Si aparece una ambigüedad que afecte
+> permisos, señalala y proponé una resolución sin darla por aceptada.
+
+Texto completo: [Anexo F, flujo 4](anexos/anexo-f-registro-prompts.md#flujo-4-decisiones-de-administración-compartición-y-salida-de-un-autor).
+
+**Resultado:** la política PP-1 a PP-8 con D1, D2 y D5 como decisiones de
+Pablo, H1 separada entre administrador y líder (59 criterios en total), el
+modelo con capacidad de administrador, asignaciones con inicio y fin y
+comparticiones ligadas a la asignación, el ticket MVP-BE-2, los casos de
+prueba PT-1 a PT-6 y las ambigüedades AM-1 a AM-5 con resoluciones
+propuestas.
+
+**Criterio humano (Pablo):**
+
+- aceptar D1, D2 y D5 con las condiciones del pedido;
+- conservar cinco historias sin forzar el conteo de criterios;
+- pedir que las ambigüedades se señalen con una resolución propuesta, sin
+  darlas por aceptadas.
 
 ---
 
