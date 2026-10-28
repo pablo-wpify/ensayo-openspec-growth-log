@@ -1007,9 +1007,9 @@ cobertura de los 67 criterios: [Anexo G](anexos/anexo-g-plan-incremental.md).
 | I1 | **primer recorrido usable:** el administrador invita y asigna; el líder guarda un borrador privado y lo vuelve a abrir | E2E en el CI; solo el autor lee el borrador, probado con dos líderes y una administradora |
 | I2 | completar y marcar como lista | validaciones; la entrada lista sigue privada |
 | I3 | consultar la evidencia por persona: resumen y vista cronológica | consulta con alcance; un borrador no cuenta |
-| I4 | compartir y revocar, con fin de asignación y reasignación | PT-2, PT-3, PT-4, PT-12; E2E de compartir |
+| I4 | compartir y revocar, con fin de asignación y reasignación | PT-2 y PT-12; PT-3 y PT-4 en ficha, resumen y detalle; E2E de compartir hasta el resumen del destinatario, sin el feed |
 | I5 | autor sin asignación | PT-11 |
-| I6 | feed y filtros: **flujo principal completo** | el feed solo muestra lo visible |
+| I6 | feed y filtros: **flujo principal completo** | el feed solo muestra lo visible; PT-3 y PT-4 completos, con el feed |
 | I7 | baja de personas, desactivación de cuentas, último administrador | PT-5, PT-6, PT-9 |
 | I8 | revocación administrativa sin lectura | PT-1, PT-10 |
 | I9 | despliegue, correo real y backups: **alcance total del MVP**, apto para datos reales | correo entregado; restauración probada |

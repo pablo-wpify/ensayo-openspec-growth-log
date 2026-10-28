@@ -100,6 +100,8 @@ visible.
 entrada lista y la ve en su resumen. El autor la revoca. Terminar la
 asignación del destinatario le quita el acceso, y reasignarlo no se lo
 devuelve.
+**Verificación en I4:** solo las rutas y vistas disponibles (ficha,
+resumen y detalle). El feed llega en I6: PT-3 y PT-4 se completan allí.
 **Decisión que lo bloquea:** confirmar la propuesta de ligar cada
 compartición a la asignación del destinatario
 ([ADR-4](anexo-d-decisiones-arquitectura.md#adr-4-cómo-se-registra-una-compartición),
@@ -110,9 +112,9 @@ propuesta adicional no decidida) o elegir otra forma de cumplir D2.
 | T4.1 | migración de comparticiones con revocación | MVP-DB-1 | soporte de H5 | T1.5, ADR-4 | tests de modelo: unicidad sin revocar, misma persona, destinatario distinto del autor |
 | T4.2 | nombres de los otros líderes en la ficha | MVP-BE-1 | 1.18 | T1.4 | pasa PT-12 |
 | T4.3 | compartir de a un destinatario, con la interfaz del mock 3 | MVP-BE-1, H5 | 3.9, 4.10, 5.6, 5.9 | T4.1, T4.2 | pasa PT-2; un borrador no se puede compartir |
-| T4.4 | revocar por el autor | MVP-BE-1, H5 | 5.7 (parcial) | T4.3 | pasa PT-3 |
-| T4.5 | terminar una asignación y reasignar | MVP-BE-2, MVP-BE-1 | 1.20, 1.9 (parcial), 3.10 (parcial), 4.14 (parcial), 5.10 (parcial) | T4.3 | pasa PT-4; sin asignación, el autor no edita ni comparte |
-| T4.6 | lectura por compartición en ficha, resumen y detalle | MVP-BE-1 | 1.10, 1.15, 4.2, 4.3, 4.8, 4.9, 4.12, 4.13 | T4.3 a T4.5 | dos líderes ven resúmenes distintos; pasa el E2E de compartir de la sección 2.6 |
+| T4.4 | revocar por el autor | MVP-BE-1, H5 | 5.7 (parcial) | T4.3 | pasa PT-3 en la ficha, el resumen y el detalle; la rama del feed se completa en T6.1 |
+| T4.5 | terminar una asignación y reasignar | MVP-BE-2, MVP-BE-1 | 1.20, 1.9 (parcial), 3.10 (parcial), 4.14 (parcial), 5.10 (parcial) | T4.3 | pasa PT-4 en la ficha, el resumen y el detalle; la rama del feed se completa en T6.1; sin asignación, el autor no edita ni comparte |
+| T4.6 | lectura por compartición en ficha, resumen y detalle | MVP-BE-1 | 1.10, 1.15, 4.2, 4.3, 4.8, 4.9, 4.12, 4.13 | T4.3 a T4.5 | dos líderes ven resúmenes distintos; pasa el E2E de compartir de la sección 2.6: captura rápida, completar, marcar como lista, compartir y lectura en el resumen del destinatario, sin el feed |
 
 ### I5. Autor sin asignación
 
@@ -134,7 +136,7 @@ filtros en el feed y en la ficha. Con I6 queda completo el flujo principal.
 
 | Tarea | Resultado | Procede de | Criterios | Depende de | Aceptación verificable |
 |---|---|---|---|---|---|
-| T6.1 | feed con alcance, orden y paginación | H5, sin ticket | 4.11, 5.1, 5.3, 5.4, 5.5, 5.7, 5.8, 5.10 | T3.1, T5.1 | el feed excluye borradores ajenos, privadas ajenas, comparticiones revocadas y las de asignaciones terminadas |
+| T6.1 | feed con alcance, orden y paginación | H5, sin ticket | 4.11, 5.1, 5.3, 5.4, 5.5, 5.7, 5.8, 5.10 | T3.1, T5.1 | el feed excluye borradores ajenos, privadas ajenas, comparticiones revocadas y las de asignaciones terminadas; completa PT-3 y PT-4 con la rama del feed |
 | T6.2 | filtros sin recargar en el feed y en la ficha | H4, H5, sin ticket | 4.6, 4.7, 5.2 | T6.1 | los filtros solo devuelven entradas visibles y se pueden limpiar |
 
 ### I7. Ciclo de vida de cuentas y personas
@@ -161,7 +163,7 @@ AM-3, [Anexo C](anexo-c-riesgos-decisiones.md#c3-reglas-que-cierran-las-ambigüe
 
 | Tarea | Resultado | Procede de | Criterios | Depende de | Aceptación verificable |
 |---|---|---|---|---|---|
-| T8.1 | consulta y revocación administrativa | MVP-BE-1 | 1.13 | T4.4 | pasan PT-10 y PT-1 completo |
+| T8.1 | consulta y revocación administrativa | MVP-BE-1 | 1.13 | T4.4, T6.1 | pasan PT-10 y PT-1 completo, incluido el feed |
 
 ### I9. Preparación para datos reales
 
@@ -260,8 +262,11 @@ restauración probada).
 | I9 | media | **alta** | hosting y correo todavía sin elegir |
 
 **Camino crítico:** ADR-1 a ADR-3 → E1 a E3 → I1 → I2 → I3 → I4 → I5 → I6.
-I7 e I8 no dependen de I5 ni de I6 y pueden ordenarse de otra forma; I9
-necesita E4 y cierra el camino hacia los datos reales.
+Algunas tareas de I7 e I8 pueden adelantarse: T7.1 a T7.3 no dependen de I5
+ni de I6, y la revocación administrativa puede empezar después de T4.4.
+Pero completar I7 requiere I6 (T7.4 depende de T6.1), y completar I8 también,
+porque PT-1 incluye el feed. I9 necesita E4 y cierra el camino hacia los
+datos reales.
 
 No se publican estimaciones de esfuerzo: dependen de la dedicación
 disponible, que no está definida. El plan prioriza dependencias y riesgos,
