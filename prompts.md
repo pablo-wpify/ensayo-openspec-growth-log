@@ -50,7 +50,7 @@ marcados como «[fragmento omitido]»; el resto es literal.
 | 1 | Política de privacidad para varios líderes | diseño de producto | 1.2, 2.5, 3, 5 | PP-1 a PP-7 propuestas, criterios y decisiones D1 a D5 |
 | 2 | La presentación como fuente de la visión | producto | 1.1 | problema, destinatarios e hipótesis de valor HV-1 a HV-6 |
 | 3 | Arquitectura, modelo de datos y stack | diseño técnico | 2, 3, 4, 6 | arquitectura, modelo conceptual, stack con alternativas, tickets y ADR |
-| 4 | Decisiones de administración, compartición y salida de un autor | decisiones de producto | 1.2, 2.5, 2.6, 3, 5, 6 | D1, D2 y D5 registradas, H1 separada, modelo, ticket MVP-BE-2, casos PT-1 a PT-6 y ambigüedades AM-1 a AM-5 |
+| 4 | Decisiones de administración, compartición y salida de un autor | decisiones de producto | 1.2, 2.5, 2.6, 3, 4, 5, 6 | D1, D2, D5 y AM-1 a AM-5 registradas, H1 separada, modelo, ticket MVP-BE-2 y casos PT-1 a PT-12 |
 
 ---
 
@@ -158,7 +158,8 @@ borradores de ADR (Anexo D).
 
 ## Flujo 4. Decisiones de administración, compartición y salida de un autor
 
-*Secciones 1.2, 2.5, 2.6, 3, 5 y 6 de la plantilla.*
+*Secciones 1.2, 2.5, 2.6, 3, 4, 5 y 6 de la plantilla.* Dos pedidos: 4a
+registra D1, D2 y D5; 4b, las reglas que cierran sus ambigüedades.
 
 | Campo | Detalle |
 |---|---|
@@ -174,21 +175,34 @@ borradores de ADR (Anexo D).
 > No inventes decisiones adicionales. Si aparece una ambigüedad que afecte
 > permisos, señalala y proponé una resolución sin darla por aceptada.
 
+**Extracto literal del pedido 4b:**
+
+> AM-3. Revocación administrativa
+> - El administrador puede revocar una compartición concreta sin leer
+>   el contenido de la entrada.
+>
+> No amplíes el alcance con otras funciones. Si aparece una contradicción,
+> explicala y proponé el ajuste mínimo; no inventes decisiones de producto.
+
 Texto completo: [Anexo F, flujo 4](anexos/anexo-f-registro-prompts.md#flujo-4-decisiones-de-administración-compartición-y-salida-de-un-autor).
 
-**Resultado:** la política PP-1 a PP-8 con D1, D2 y D5 como decisiones de
+**Resultado del pedido 4a:** la política PP-1 a PP-8 con D1, D2 y D5 como decisiones de
 Pablo, H1 separada entre administrador y líder (59 criterios en total), el
 modelo con capacidad de administrador, asignaciones con inicio y fin y
 comparticiones ligadas a la asignación, el ticket MVP-BE-2, los casos de
 prueba PT-1 a PT-6 y las ambigüedades AM-1 a AM-5 con resoluciones
-propuestas.
+propuestas. Con el pedido 4b: las reglas AM-1 a AM-5 como decisiones, la
+regla PP-9 de lectura por autoría, la entidad de invitaciones, el registro
+de revocación, 67 criterios y los casos PT-7 a PT-12.
 
 **Criterio humano (Pablo):**
 
 - aceptar D1, D2 y D5 con las condiciones del pedido;
 - conservar cinco historias sin forzar el conteo de criterios;
 - pedir que las ambigüedades se señalen con una resolución propuesta, sin
-  darlas por aceptadas.
+  darlas por aceptadas;
+- después, aceptar las reglas AM-1 a AM-5, la visibilidad de los nombres de
+  otros líderes y los criterios 3.9, 4.11 y 4.12, sin ampliar el alcance.
 
 ---
 

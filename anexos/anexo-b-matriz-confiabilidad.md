@@ -27,7 +27,7 @@ que falta decidir o validar para cumplirlos.
 | 7 | Balanceo y escalado | Una instancia como propuesta inicial, por simplicidad y volumen esperado; el monolito puede ejecutarse en varias. | — |
 | 8 | Errores y monitoreo | Seguimiento de errores **sin contenido de feedback**; logs con el feedback filtrado. | herramienta y si es un servicio externo; ADR-8 |
 | 9 | Seguridad y Row Level Security | Autorización en el servidor, denegar por defecto, con tests de permitido y rechazado; CSP y HTTPS forzados. | si se suma RLS en PostgreSQL como segunda defensa; ADR-5 |
-| 10 | Autenticación y permisos | Cuentas individuales creadas por un administrador; política PP-1 a PP-8; política de contraseñas; desactivación con invalidación de sesiones; cuenta administradora inicial sin credenciales fijas en el repositorio; seeds solo en desarrollo. | ADR-2; AM-2, AM-4 y AM-5 |
+| 10 | Autenticación y permisos | Invitaciones de un solo uso y con vencimiento por correo; política PP-1 a PP-9; política de contraseñas; desactivación con invalidación de sesiones; siempre un administrador activo; cuenta administradora inicial sin secretos en el repositorio; seeds solo en desarrollo. | biblioteca de autenticación (ADR-2) y proveedor de correo (ADR-8) |
 | 11 | Hosting e infraestructura | HTTPS forzado, PostgreSQL gestionado y secretos fuera del repositorio. | proveedor; ADR-7 |
 
 **Lectura de conjunto (nuestra).** Para el MVP pesan sobre todo la

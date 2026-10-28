@@ -16,7 +16,7 @@ por confirmar.
 **Textos de la interfaz.** Cada imagen lleva la marca «Mock — propuesta del MVP · Datos ficticios».
 Las pantallas usan mensajes para el usuario
 («Solo vos podés ver este borrador»). Las referencias a la política (PP-1 a
-PP-8) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
+PP-9) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 
 ## Mock 1. Ficha de una persona
 
@@ -24,7 +24,8 @@ PP-8) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 
 | Qué muestra | Criterios y reglas | Decisiones |
 |---|---|---|
-| Vista del líder: solo personas con asignación activa; una persona puede tener varios líderes | 1.10, 1.13, 1.16; PP-2 | **D1, decidida:** las asignaciones las gestiona un administrador; esa pantalla no está ilustrada |
+| Vista del líder: solo personas con asignación activa; una persona puede tener varios líderes | 1.14, 1.17, 1.21; PP-2 | **D1, decidida:** las asignaciones las gestiona un administrador; esa pantalla no está ilustrada |
+| Nombres de los demás líderes activos asignados, sin sus entradas privadas ni datos de contacto | 1.18; PP-2 | **Decidido por Pablo** |
 | Resumen por dimensión con entradas listas visibles, distinguiendo las propias de las compartidas | 4.1–4.3; PP-6 | — |
 | Las entradas privadas de otro líder sobre la misma persona no se muestran ni se cuentan; dos líderes pueden ver resúmenes distintos | 4.11, 4.12 | — |
 | Vista cronológica por fecha del hecho, solo con entradas visibles | 4.13 | — |
@@ -52,13 +53,13 @@ PP-8) y a las decisiones (D1 a D5) están en este anexo, no en la interfaz.
 |---|---|---|
 | La entrada está lista y **sin compartir**: «lista» no es «compartida» | 2.9, 3.6; PP-4 | — |
 | Franco Ensayo está **seleccionado** (casilla con tilde), pero la acción no se confirmó: la entrada sigue sin destinatarios hasta pulsar «Compartir» y «Compartida con» dice «nadie todavía» | 5.6 | — |
-| Destinatarios: líderes activos que acompañan a la persona; se comparte de a uno | 5.6 | **D2, decidida** |
+| Destinatarios: líderes activos que acompañan a la persona; se comparte de a uno | 1.18, 5.6 | **D2, decidida** |
 | Compartir da permiso de lectura; solo la autora edita y comparte; el destinatario no vuelve a compartir | 4.10, 5.9; PP-5 | **D2, decidida** |
-| «Dejar de compartir» aparece deshabilitado porque no hay comparticiones | 5.7 | **D2, decidida:** revocar registra `revoked_at`. Escalar sigue abierto (**D3**) |
+| «Dejar de compartir» aparece deshabilitado porque no hay comparticiones | 5.7, 5.12 | **D2 y AM-1, decididas:** revoca el autor, aun sin asignación, y queda registrado quién revocó. Escalar sigue abierto (**D3**) |
 | Un borrador no muestra la sección «Compartir» | 3.9 | — |
-| Qué pasa con la entrada si la autora deja el equipo | PP-7, 5.11 | **D5, decidida:** se conserva con su autoría; pendiente AM-3 |
+| Qué pasa con la entrada si la autora deja el equipo | PP-7, 5.11 | **D5 y AM-3, decididas:** se conserva con su autoría; un administrador puede revocar una compartición concreta sin leerla |
 
-Registrar cada compartición por destinatario está decidido por D2 (ADR-4).
+Registrar cada compartición por destinatario, con quién la revocó y por qué, está decidido por D2 y AM-3 (ADR-4).
 
 ## Mock 4. Feed con filtros
 
@@ -78,11 +79,14 @@ Registrar cada compartición por destinatario está decidido por D2 (ADR-4).
 
 Los cuatro mocks muestran el recorrido del líder. No hay pantallas para:
 
-- las acciones del administrador: crear cuentas, crear y editar personas,
-  asignar y terminar asignaciones, dar de baja personas y desactivar cuentas
-  (H1, criterios 1.1 a 1.9; MVP-BE-2);
-- la revocación de una compartición vigente (5.7) ni la vista de un
-  destinatario cuyo acceso terminó (5.10).
+- las acciones del administrador: invitar y desactivar cuentas, crear y
+  editar personas, asignar y terminar asignaciones, dar de baja personas y
+  revocar una compartición concreta (H1, criterios 1.1 y 1.3 a 1.13;
+  MVP-BE-2 y MVP-BE-1);
+- el establecimiento de la contraseña desde una invitación (1.2);
+- la revocación de una compartición vigente por el autor (5.7, 5.12), la
+  vista de un destinatario cuyo acceso terminó (5.10) y la vista mínima de
+  un autor sin asignación (3.10, 4.14).
 
 Quedan especificadas en los criterios y en los tickets.
 

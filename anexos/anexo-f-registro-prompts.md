@@ -8,7 +8,7 @@ se prepararon con ayuda de ChatGPT (según lo declarado por Pablo; esas
 conversaciones no se conservan) y se ejecutaron en Claude Code (CLI) con
 Claude Opus 5.5 (comprobado en la transcripción).
 
-**Nota de sanitización.** Se publican cuatro prompts de la preparación de la
+**Nota de sanitización.** Se publican cinco prompts de la preparación de la
 entrega; otros no se incluyen en esta versión pública. Cambios respecto del
 original:
 
@@ -219,7 +219,7 @@ No hagas fork, commits, push, PR ni publicación.
 ```
 ## Flujo 4. Decisiones de administración, compartición y salida de un autor
 
-Enviado el 27/10/2026 a las 23:51 UTC.
+**4a. Decisiones D1, D2 y D5** · Enviado el 27/10/2026 a las 23:51 UTC.
 
 ```text
 Acepto estas decisiones para el MVP de Growth Log. Registralas como
@@ -301,6 +301,100 @@ mocks y datos sensibles. Hacé un commit local nuevo y mostrame:
 - hash y estado final;
 - cambios principales;
 - decisiones que siguen abiertas;
+- cualquier contradicción pendiente.
+
+No crees fork ni remotos, no hagas push ni PR y no completes el
+formulario. [fragmento omitido]
+```
+
+**4b. Reglas que cierran las ambigüedades** · Enviado el 28/10/2026 a las 00:06 UTC.
+
+```text
+Acepto las siguientes reglas para cerrar las ambigüedades del MVP.
+Registralas como decisiones de Pablo.
+
+Trabajá en feature/entrega-1-pp-mvp, cuyo HEAD esperado es:
+fc00bc44d5c23b37b3bb123512b784cefcb60b9c
+
+Confirmá primero rama y estado. No crees otra rama.
+
+AM-1. Termina la asignación del autor
+- Mientras su cuenta esté activa, conserva lectura de sus propias
+  entradas, incluidos sus borradores.
+- No puede editarlas, marcarlas como listas ni compartirlas hasta
+  volver a estar asignado.
+- Puede revocar comparticiones existentes de sus propias entradas.
+- La autoría no le permite abrir la ficha completa ni entradas ajenas.
+  Mostrá solo los datos mínimos necesarios para identificar sus entradas.
+- Volver a estar asignado no reactiva comparticiones que hayan perdido
+  vigencia como destinatario.
+
+AM-2. Desactivación de cuentas
+- La realiza el administrador.
+- Impide nuevos inicios de sesión e invalida las sesiones abiertas.
+- No borra entradas ni cambia su autoría.
+
+AM-3. Revocación administrativa
+- El administrador puede revocar una compartición concreta sin leer
+  el contenido de la entrada.
+- Esta facultad no permite crear comparticiones, editar entradas
+  ni acceder al feedback.
+- La consulta administrativa muestra únicamente los metadatos mínimos
+  necesarios para identificar la compartición.
+- Se registra quién revocó, cuándo y por qué.
+- No es necesario terminar una asignación completa para revocar un
+  permiso puntual.
+
+AM-4. Último administrador
+- No se puede desactivar ni quitar el rol al último administrador activo.
+- La regla debe mantenerse también ante operaciones concurrentes.
+
+AM-5. Acceso inicial
+- El administrador invita a una cuenta mediante un enlace de un solo
+  uso y con vencimiento para que establezca su contraseña.
+- No hay contraseñas fijas ni se envían contraseñas en texto plano.
+- El correo transaccional queda incluido como requisito del MVP.
+- El procedimiento de alta del primer administrador sigue documentado,
+  sin secretos en el repositorio.
+- La biblioteca y el proveedor quedan por elegir.
+
+Visibilidad de otros líderes
+- Un líder con asignación activa puede ver los nombres de los demás
+  líderes activos asignados a esa persona para elegir destinatarios.
+- Esto no permite ver sus entradas privadas ni datos de contacto.
+
+Criterios ya aceptados
+- 3.9: los borradores no se comparten.
+- 4.11: acompañar a una persona no permite leer entradas privadas ajenas.
+- 4.12: dos líderes pueden ver resúmenes distintos según sus permisos.
+Quitá su marca de confirmación pendiente.
+
+Alineá README, política, historias, criterios, modelo, tickets, API,
+matriz, riesgos, ADR y notas de los mocks.
+
+Prestá especial atención a:
+1. Diferenciar lectura por autoría de acceso por asignación.
+2. Separar revocación administrativa de lectura del contenido.
+3. Expresar el registro de revocación y sus responsabilidades sin
+   convertirlo en un sistema general de auditoría.
+4. Cubrir invitaciones, vencimiento, uso único, sesiones invalidadas y
+   protección del último administrador en las pruebas propuestas.
+5. Actualizar dependencias de tickets y orden de implementación.
+6. No mantener conteos artificiales: actualizalos si cambian criterios.
+7. Registrar este pedido en el workflow existente de decisiones, sin
+   superar cinco workflows principales y sin alterar citas anteriores.
+
+No amplíes el alcance con otras funciones. Si aparece una contradicción,
+explicala y proponé el ajuste mínimo; no inventes decisiones de producto.
+
+Revisá coherencia, enlaces, datos sensibles, diagramas renderizados y
+mocks. Hacé un commit local nuevo y sincronizá la copia entrega-mvp/
+de las notas.
+
+Mostrame:
+- hash y estado final;
+- cambios principales;
+- decisiones que realmente siguen abiertas;
 - cualquier contradicción pendiente.
 
 No crees fork ni remotos, no hagas push ni PR y no completes el
