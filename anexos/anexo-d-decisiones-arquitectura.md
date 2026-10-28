@@ -119,8 +119,10 @@ No es un ADR propio: es una decisión de producto que condiciona el modelo.
 - **Seguimiento de errores:** opcional; servicio externo o solo logs.
 - **Criterio:** que ningún contenido de feedback salga de la aplicación;
   costo y configuración.
-- **Estado:** proveedor de correo, abierto (bloquea MVP-BE-2); seguimiento de
-  errores, abierto.
+- **Estado:** proveedor de correo, abierto. Bloquea la entrega real de
+  invitaciones (I9 del [Anexo G](anexo-g-plan-incremental.md)); en desarrollo,
+  las invitaciones se prueban con correo capturado. Seguimiento de errores,
+  abierto.
 
 ---
 

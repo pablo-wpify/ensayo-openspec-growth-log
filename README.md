@@ -43,11 +43,13 @@
 | [Anexo D. Decisiones de arquitectura](anexos/anexo-d-decisiones-arquitectura.md) | Borradores de ADR: contexto, opciones y criterio de cada decisión pendiente. |
 | [Anexo E. Notas de los mocks](anexos/anexo-e-mocks.md) | Relación de cada mock con los criterios y las decisiones pendientes. |
 | [Anexo F. Registro de prompts](anexos/anexo-f-registro-prompts.md) | Texto de los prompts publicados, con nota de sanitización. |
+| [Anexo G. Plan incremental](anexos/anexo-g-plan-incremental.md) | Tareas por incremento, cobertura de los 67 criterios, requisitos no funcionales y riesgos de ejecución. |
 
 **Siglas:** H1 a H5, historias; PP-1 a PP-9, política de privacidad; D1 a
 D5, decisiones de privacidad; AM-1 a AM-5, reglas que cierran ambigüedades;
 ADR-1 a ADR-8, decisiones de arquitectura; HV-1 a HV-6, hipótesis de valor;
-PT-1 a PT-12, casos de prueba de permisos; RN-1 a RN-12, riesgos del MVP.
+PT-1 a PT-12, casos de prueba de permisos; RN-1 a RN-12, riesgos del MVP;
+E1 a E4, tareas habilitadoras, e I1 a I9, incrementos del plan.
 
 ## Índice
 
@@ -727,15 +729,21 @@ detectar patrones y coordinarme con otros líderes.
 ## 6. Tickets de trabajo
 
 La plantilla pide tres tickets (base de datos, backend y frontend). Se suma
-**MVP-BE-2**, la administración mínima que habilita el recorrido. Orden
-propuesto: MVP-DB-1 → MVP-BE-2 → MVP-BE-1 → MVP-FE-1. ADR-2 (biblioteca de
-autenticación) y ADR-8 (proveedor de correo) tienen que estar resueltos
-antes de MVP-BE-2.
+**MVP-BE-2**, la administración mínima que habilita el recorrido. Los
+cuatro tickets describen **qué** hay que construir; **no se ejecutan uno
+detrás de otro**, sino por partes, dentro de los incrementos de la
+[sección 10](#10-plan-de-trabajo-y-uso-de-ia). Cada tarea, con sus
+dependencias reales y su aceptación, está en el
+[Anexo G](anexos/anexo-g-plan-incremental.md#g4-incrementos-y-tareas).
+La interfaz de H2, H4 y H5, que no tenía ticket propio, también está
+descompuesta allí.
 
 ### MVP-DB-1. Modelo de administración, asignaciones, autoría y compartición (base de datos)
 
 - **Historias:** H1, H2, H5. **Reglas:** PP-1 a PP-9; decisiones D1, D2, D5 y
   AM-1 a AM-5.
+- **Se ejecuta en:** I1 (cuentas, invitaciones, personas, asignaciones y
+  entradas) e I4 (comparticiones), con migraciones por incremento.
 - **Preguntas que la base tiene que poder responder:**
   1. ¿Qué líderes acompañan hoy a esta persona, y desde cuándo? Puede haber
      más de uno.
@@ -780,8 +788,12 @@ antes de MVP-BE-2.
 
 - **Historia:** H1. **Reglas:** PP-1, PP-2, PP-7, PP-8; decisiones D1, D5,
   AM-2, AM-4 y AM-5.
-- **Depende de:** MVP-DB-1, ADR-2 (biblioteca de autenticación) y ADR-8
-  (proveedor de correo).
+- **Se ejecuta en:** E2 (sesión y cuenta inicial), I1 (invitaciones,
+  personas y asignaciones), I4 (terminar asignaciones) e I7 (bajas,
+  desactivación y último administrador).
+- **Depende de:** las partes correspondientes de MVP-DB-1 y ADR-2. Las
+  invitaciones se prueban con correo capturado en desarrollo; ADR-8
+  (proveedor de correo) solo bloquea la entrega real (I9).
 - **Alcance:** acciones del administrador en una vista de administración
   mínima, con datos de personas, cuentas y asignaciones: invitar cuentas
   con un enlace de un solo uso y con vencimiento, establecer la contraseña
@@ -820,8 +832,13 @@ antes de MVP-BE-2.
 
 - **Historias:** H1 (revocación administrativa), H2 a H5. **Reglas:** PP-2 a
   PP-9; criterios 1.13, 3.10, 4.11, 4.12, 4.14 y 5.6 a 5.12.
-- **Depende de:** MVP-DB-1, MVP-BE-2 (o datos de prueba equivalentes para
-  cuentas y asignaciones) y ADR-3.
+- **Se ejecuta en:** E3 (denegar por defecto), I1 (lectura por autoría y
+  pruebas negativas), I3 (consulta con alcance), I4 (compartir, revocar y
+  reasignar), I5 (autor sin asignación), I6 (feed), I7 (doble función) e
+  I8 (revocación administrativa).
+- **Depende de:** ADR-3 y, en cada incremento, las tablas y acciones que
+  usa. Las pruebas negativas pueden usar datos preparados antes de que
+  exista la interfaz correspondiente.
 - **Regla:** aplica la política PP-2 a PP-9 y las
   [reglas que cruzan entidades](#32-descripción-de-entidades-principales):
   lectura por autoría o por compartición vigente; edición y compartición
@@ -849,15 +866,16 @@ antes de MVP-BE-2.
     ([detalle en el Anexo A](anexos/anexo-a-historias.md#casos-de-prueba-de-permisos-pt)).
   - Ninguna acción de entradas queda sin cubrir por la política, comprobado
     por un test.
-- **Fuera de alcance:** la interfaz de compartir y revocar; se construye con
-  H5 siguiendo el mock 3.
+- **Interfaz:** compartir y revocar se construyen en I4 siguiendo el
+  mock 3 (tareas T4.3 y T4.4 del Anexo G).
 
 ### MVP-FE-1. Captura rápida accesible desde la ficha (frontend)
 
 - **Historia:** H3. **Hipótesis relacionada:** HV-1.
-- **Depende de:** MVP-DB-1, para guardar el borrador, y MVP-BE-1, para que
-  sea privado de su autor. La interfaz puede maquetarse antes, pero la
-  integración funcional requiere los dos.
+- **Se ejecuta en:** I1 (captura rápida y reapertura del borrador) e I2
+  (completar y marcar como lista).
+- **Depende de:** la migración de entradas (MVP-DB-1) y la lectura por
+  autoría con denegación por defecto (MVP-BE-1), no de todo MVP-BE-1.
 - **Contexto:** la captura rápida solo sirve si está a la vista desde la
   ficha; sin un acceso visible, no se usa.
 - **Pasos:**
@@ -977,19 +995,37 @@ Todos los riesgos están en el
 
 ## 10. Plan de trabajo y uso de IA
 
-**Propuesto.** Pablo define el objetivo y toma las decisiones; la IA asiste
-en el análisis, la especificación, la implementación y la revisión, y cada
-fase tiene una verificación humana o automática.
+**Propuesto.** El MVP se construye en **incrementos verticales**: cada uno
+termina en un recorrido integrado y probado, no en una capa técnica. Antes
+del primero, las tareas habilitadoras E1 a E4 preparan el proyecto, la
+sesión, la denegación por defecto y los controles previos a exponer el
+sistema. Tareas, dependencias, decisiones que bloquean cada incremento y
+cobertura de los 67 criterios: [Anexo G](anexos/anexo-g-plan-incremental.md).
 
-| Fase | Qué se hace | Uso de IA | Verificación |
-|---|---|---|---|
-| 0. Documentación (entrega 1) | visión, MVP, arquitectura y modelo propuestos | análisis de la visión, redacción y revisión de coherencia | revisión de Pablo; enlaces y datos sensibles |
-| 1. Decisiones | D1, D2, D5 y AM-1 a AM-5 decididas (27/10/2026); resolver ADR-2 y ADR-8 primero, porque bloquean las invitaciones, y luego D3 y los demás ADR | comparar opciones con sus consecuencias | Pablo decide y se registra en un ADR |
-| 2. Especificación ejecutable | criterios de aceptación → tests que fallan | proponer tests desde los criterios | Pablo revisa que cada test refleje su criterio |
-| 3. Modelo, administración y autorización | MVP-DB-1, MVP-BE-2 y MVP-BE-1, en ese orden | implementar hasta pasar los tests | CI en verde; PT-1 a PT-12; test de cobertura de la política |
-| 4. Historias | H1 (ficha y asignaciones válidas) como base; luego H2 y H3; después H4 y H5 | implementar e iterar | tests de cada criterio y el E2E |
-| 5. Operación | CI como condición, despliegue y backups | configurar el pipeline | una restauración de backup probada |
-| 6. Validación | pruebas de uso y piloto | preparar guiones y resumir resultados | HV-1 a HV-4 contrastadas con usuarios |
+| Incremento | Resultado | Verificación |
+|---|---|---|
+| I1 | **primer recorrido usable:** el administrador invita y asigna; el líder guarda un borrador privado y lo vuelve a abrir | E2E en el CI; solo el autor lee el borrador, probado con dos líderes y una administradora |
+| I2 | completar y marcar como lista | validaciones; la entrada lista sigue privada |
+| I3 | consultar la evidencia por persona: resumen y vista cronológica | consulta con alcance; un borrador no cuenta |
+| I4 | compartir y revocar, con fin de asignación y reasignación | PT-2, PT-3, PT-4, PT-12; E2E de compartir |
+| I5 | autor sin asignación | PT-11 |
+| I6 | feed y filtros: **flujo principal completo** | el feed solo muestra lo visible |
+| I7 | baja de personas, desactivación de cuentas, último administrador | PT-5, PT-6, PT-9 |
+| I8 | revocación administrativa sin lectura | PT-1, PT-10 |
+| I9 | despliegue, correo real y backups: **alcance total del MVP**, apto para datos reales | correo entregado; restauración probada |
+
+**Uso de IA por fase.** Pablo define el objetivo y toma las decisiones; la
+IA asiste y cada fase tiene una verificación humana o automática.
+
+| Fase | Uso de IA | Verificación |
+|---|---|---|
+| Documentación (entrega 1) | análisis de la visión, redacción y revisión de coherencia | revisión de Pablo; enlaces y datos sensibles |
+| Decisiones (ADR y detalles pendientes) | comparar opciones con sus consecuencias | Pablo decide y se registra en un ADR |
+| Especificación ejecutable, en cada incremento | proponer tests desde los criterios, incluidas las pruebas negativas | Pablo revisa que cada test refleje su criterio |
+| Implementación, en cada incremento | implementar hasta pasar los tests | CI en verde; test de cobertura de la política |
+| Revisión | revisar los cambios contra la política y los criterios | revisión de Pablo del pull request |
+| Operación (I9) | configurar el pipeline, el despliegue y los backups | una restauración probada |
+| Validación | preparar guiones de prueba y resumir resultados | HV-1 a HV-4 contrastadas con usuarios |
 
 Los flujos de IA ya usados en esta entrega están en
 [prompts.md](prompts.md).
