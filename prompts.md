@@ -204,6 +204,61 @@ de revocación, 67 criterios y los casos PT-7 a PT-12.
 - después, aceptar las reglas AM-1 a AM-5, la visibilidad de los nombres de
   otros líderes y los criterios 3.9, 4.11 y 4.12, sin ampliar el alcance.
 
+### Caso concreto: reasignar a un líder sin reactivar comparticiones
+
+Reconstruido con los pedidos 4a y 4b ([Anexo F](anexos/anexo-f-registro-prompts.md#flujo-4-decisiones-de-administración-compartición-y-salida-de-un-autor)),
+los commits de la rama de entrega y el
+[ADR-4](anexos/anexo-d-decisiones-arquitectura.md#adr-4-cómo-se-registra-una-compartición).
+No agrega pasos ni intervenciones que no estén registrados.
+
+- **Situación inicial.** Antes del flujo 4 (commit `ee84919`), el modelo
+  registraba cada compartición con el usuario destinatario
+  (`recipient_id`), como alternativa sujeta a D2, que estaba abierta. No
+  estaba definido qué pasaba con una compartición si terminaba la
+  asignación del destinatario y después volvían a asignarlo.
+- **Decisión de Pablo** (pedido 4a): la reasignación no recupera permisos
+  anteriores.
+
+  > - Si vuelve a ser asignado, las comparticiones anteriores no recuperan
+  >   vigencia automáticamente: el autor debe compartir nuevamente.
+
+  El pedido dejó el cómo al asistente: «Asegurar que una nueva asignación
+  no reactive permisos antiguos».
+- **Propuesta técnica del asistente** (resultado del pedido 4a, commit
+  `fc00bc4`): ligar cada compartición a una asignación concreta del
+  destinatario (`assignment_id` en lugar de `recipient_id`) y, al
+  reasignar, crear una asignación nueva en lugar de reabrir la anterior.
+  Una compartición vale solo mientras su asignación esté activa, y la
+  asignación nueva empieza sin comparticiones. Está en el
+  [modelo de datos](README.md#31-diagrama-del-modelo-de-datos).
+- **Revisión y ajustes.**
+  - El mecanismo sigue registrado como **propuesta, no como decisión**:
+    ADR-4 lo presenta como «propuesta adicional, no decidida».
+  - En el pedido 4b, Pablo decidió AM-1, que aplica la misma regla a un
+    líder que vuelve a ser asignado: «Volver a estar asignado no reactiva
+    comparticiones que hayan perdido vigencia como destinatario». Se
+    reflejó en el caso PT-11.
+  - Al precisar la nulabilidad del modelo (commit `dd94528`) quedó
+    explícito que `assignment_id` es obligatorio y que una asignación
+    activa tiene `ended_at` vacío.
+- **Especificación resultante:**
+  - el criterio [5.10](anexos/anexo-a-historias.md#h5-explorar-y-compartir-feedback-feed);
+  - el caso de prueba propuesto [PT-4](anexos/anexo-a-historias.md#casos-de-prueba-de-permisos-pt);
+  - la regla «una compartición vale mientras su asignación esté activa» de
+    las [reglas que cruzan entidades](README.md#32-descripción-de-entidades-principales);
+  - un criterio de [MVP-DB-1](README.md#mvp-db-1-modelo-de-administración-asignaciones-autoría-y-compartición-base-de-datos):
+    terminar una asignación y crear otra para el mismo líder y la misma
+    persona no deja vigente ninguna compartición anterior.
+- **Verificación prevista:** tests de modelo de MVP-DB-1 y tests de
+  peticiones de MVP-BE-1 que cubran PT-4, incluida la petición directa por
+  URL.
+
+**Estado:** se revisó la coherencia de la documentación entre el modelo, los
+criterios, los casos de prueba y los tickets, con scripts de verificación
+de enlaces, referencias y conteos. **El comportamiento todavía no está
+implementado ni probado: PT-4 es un caso propuesto, no un test
+ejecutado.**
+
 ---
 
 ## Secciones de la plantilla sin prompts registrados

@@ -37,7 +37,7 @@
 | Documento | Qué contiene |
 |---|---|
 | [prompts.md](prompts.md) | Flujos de trabajo con IA: herramienta, modelo, fase, resultado y criterio humano. |
-| [Anexo A. Historias en detalle](anexos/anexo-a-historias.md) | Los 67 criterios de aceptación y la política de privacidad con los criterios que la aplican. |
+| [Anexo A. Historias en detalle](anexos/anexo-a-historias.md) | Los 67 criterios de aceptación, el texto completo de la política de privacidad con los criterios que la aplican y los casos de prueba de permisos PT-1 a PT-12. |
 | [Anexo B. Matriz de confiabilidad](anexos/anexo-b-matriz-confiabilidad.md) | 11 capas: el requisito del MVP y lo que falta decidir o validar. |
 | [Anexo C. Riesgos y decisiones de privacidad](anexos/anexo-c-riesgos-decisiones.md) | Riesgos del MVP, decisiones D1 a D5 y reglas AM-1 a AM-5. |
 | [Anexo D. Decisiones de arquitectura](anexos/anexo-d-decisiones-arquitectura.md) | Borradores de ADR: contexto, opciones y criterio de cada decisión pendiente. |
@@ -73,7 +73,7 @@ PT-1 a PT-12, casos de prueba de permisos; RN-1 a RN-12, riesgos del MVP.
 | 0.2. Nombre del proyecto | Growth Log. **Proyecto personal de Pablo Peuscovich, autor de la idea.** |
 | 0.3. Descripción breve | Bitácora para que varios líderes registren feedback concreto sobre las personas que acompañan y lo usen en 1:1 y evaluaciones. Privacidad por defecto y compartición explícita, como propuesta de diseño. |
 | 0.4. URL del proyecto | **Pendiente.** La aplicación todavía no está construida. |
-| 0.5. Repositorio | Este repositorio contiene la documentación de la entrega 1; el código se sumará en las entregas siguientes. |
+| 0.5. Repositorio | [github.com/pablo-wpify/growth-log-ai4devs](https://github.com/pablo-wpify/growth-log-ai4devs). Rama de entrega: [`feature/entrega-1-pp`](https://github.com/pablo-wpify/growth-log-ai4devs/tree/feature/entrega-1-pp). Esta entrega contiene la documentación; el código del MVP se incorporará en las entregas siguientes. |
 
 ---
 
@@ -96,7 +96,7 @@ evaluadores.
 | Usuario | Rol | Estado en el MVP |
 |---|---|---|
 | Líder (varios por instancia) | consulta las personas que tiene asignadas, registra feedback sobre ellas, lo revisa y decide qué compartir | **en el MVP** |
-| Administrador | invita y desactiva cuentas, crea y edita personas, asigna y termina asignaciones, y puede revocar una compartición concreta sin leerla; serlo no le da lectura de entradas. Una cuenta puede ser administradora y líder a la vez | **en el MVP** (D1, AM-2 a AM-5, decididas) |
+| Administrador | gestiona cuentas, personas y asignaciones y puede revocar una compartición concreta sin leerla; no lee entradas (PP-8). Una cuenta puede ser administradora y líder a la vez | **en el MVP** (D1, AM-2 a AM-5, decididas) |
 | Persona acompañada | es el sujeto del feedback | **sin cuenta en el MVP.** Que vea su propia evolución es una intención de la visión, abierta como D4 |
 
 **Supuesto de adopción (de la visión).** Growth Log no cambia el proceso de
@@ -135,22 +135,23 @@ evaluación**; la calibración es un uso posible de la evidencia que reúne.
 | **Lista** | la entrada está completa | **sigue privada** del autor hasta que la comparta |
 | **Compartida** | otro líder puede **leerla** | solo entradas listas; solo el autor edita y comparte; el destinatario lee mientras mantenga asignación y permiso (D2) |
 
-**Política de privacidad del MVP.** Incorpora las decisiones D1, D2 y D5
-de Pablo y las reglas AM-1 a AM-5; el resto sigue siendo propuesta. **Nada
-está implementado.**
-Regla general: privacidad por defecto y compartición explícita.
+**Política de privacidad del MVP (resumen).** Incorpora las decisiones D1,
+D2 y D5 de Pablo y las reglas AM-1 a AM-5. **Nada está implementado.**
+Regla general: privacidad por defecto y compartición explícita. El texto
+completo de cada regla, con los criterios que la aplican, está en el
+[Anexo A](anexos/anexo-a-historias.md#política-de-privacidad-y-criterios-que-la-aplican).
 
-| # | Regla |
+| # | Regla, en resumen |
 |---|---|
-| PP-1 | Cada líder tiene su propia cuenta. Un administrador la invita con un enlace de un solo uso y con vencimiento para que establezca su contraseña; no hay contraseñas fijas ni se envían en texto plano (D1, AM-5). |
-| PP-2 | Un líder accede a la ficha de una persona, y crea, edita, marca como listas o comparte entradas sobre ella, solo mientras tiene una asignación activa. Con la asignación activa ve los nombres de los demás líderes activos asignados, sin sus entradas privadas ni datos de contacto. Una persona puede tener varios líderes (D1). |
-| PP-3 | Los borradores solo los ve, edita y marca como listos su autor. |
-| PP-4 | Una entrada lista sigue siendo privada del autor hasta que este decida compartirla. |
-| PP-5 | Solo el autor, con asignación activa, comparte una entrada propia y lista, de a un destinatario: un líder con cuenta activa que acompaña actualmente a la persona. El destinatario la lee mientras su cuenta siga activa, mantenga la asignación y la compartición no esté revocada; no la edita ni la vuelve a compartir. Revocan el autor, aun sin asignación, o un administrador sin leer la entrada (D2, AM-1, AM-3). |
-| PP-6 | El feed y el resumen de una persona muestran únicamente las entradas que el líder tiene permiso para ver. |
-| PP-7 | Si un autor deja el equipo, un administrador desactiva su cuenta, que no se borra: no puede iniciar sesión y sus sesiones abiertas se invalidan. Sus entradas y su autoría se conservan; las compartidas siguen disponibles para destinatarios con permiso vigente y las privadas quedan sin acceso ordinario, también para el administrador (D5, AM-2). |
-| PP-8 | Un administrador invita y desactiva cuentas, crea y edita personas, asigna y termina asignaciones, y puede revocar una compartición concreta viendo solo los metadatos mínimos para identificarla. Lo hace desde la vista de administración, que muestra datos de personas, cuentas y asignaciones, sin necesidad de estar asignado. Administrar no da permiso para leer entradas ni resúmenes, crear comparticiones ni editarlas. Nunca se puede desactivar ni quitar el rol al último administrador activo. Una misma cuenta puede administrar y acompañar personas, con los permisos de cada función por separado (D1, AM-2 a AM-4). |
-| PP-9 | Mientras su cuenta esté activa, un autor conserva la lectura de sus propias entradas, incluidos los borradores, aunque termine su asignación. Sin asignación no las edita, no las marca como listas ni las comparte, pero puede revocar sus comparticiones. La autoría no da acceso a la ficha de la persona ni a entradas ajenas: se muestran solo los datos mínimos para identificar sus entradas (AM-1). |
+| PP-1 | Cada líder tiene su propia cuenta, creada por invitación de un administrador con un enlace de un solo uso y con vencimiento (D1, AM-5). |
+| PP-2 | Abrir la ficha de una persona y crear, editar, marcar como listas o compartir entradas sobre ella exige una asignación activa; con ella se ven los nombres de los otros líderes asignados (D1). |
+| PP-3 | Los borradores son solo de su autor. |
+| PP-4 | Una entrada lista sigue privada hasta que su autor la comparta. |
+| PP-5 | Solo el autor, con asignación activa, comparte una entrada lista, de a un líder activo asignado a la misma persona; el destinatario solo la lee mientras mantenga su asignación y la compartición siga vigente. Revocan el autor o un administrador (D2, AM-1, AM-3). |
+| PP-6 | El feed y el resumen muestran solo las entradas que el líder puede ver. |
+| PP-7 | La cuenta de un autor que se va se desactiva, no se borra; las entradas compartidas siguen disponibles con permiso vigente y las privadas quedan sin acceso ordinario (D5, AM-2). |
+| PP-8 | El administrador gestiona cuentas, personas y asignaciones desde la vista de administración y puede revocar una compartición sin leerla; no lee entradas ni resúmenes y siempre queda uno activo. Una cuenta con las dos funciones conserva los permisos de cada una (D1, AM-2 a AM-4). |
+| PP-9 | El autor conserva la lectura de sus entradas aunque termine su asignación; sin ella no las edita ni las comparte, pero puede revocar (AM-1). |
 
 **Decidido para el MVP:** la consulta cronológica de la evidencia forma
 parte de H4 (criterio 4.13). **Uso posible, sin funcionalidad propia:** la
@@ -402,23 +403,20 @@ implementarlos):
 Cada criterio de aceptación del [Anexo A](anexos/anexo-a-historias.md) se
 convierte en al menos un test antes de implementarlo.
 
-**Casos de prueba de permisos propuestos** (PT). Cada uno incluye la
-petición directa por URL, además del recorrido por la interfaz:
+**Casos de prueba de permisos propuestos** (PT). Doce casos; cada uno
+incluye la petición directa por URL, además del recorrido por la interfaz.
+**Ninguno está implementado ni se ejecutó.** El detalle de cada caso (dado,
+cuando, entonces) está en el
+[Anexo A](anexos/anexo-a-historias.md#casos-de-prueba-de-permisos-pt).
 
-| # | Caso | Dado | Cuando | Entonces |
-|---|---|---|---|---|
-| PT-1 | Administrador sin permiso de lectura | una cuenta administradora sin asignación ni compartición, y una entrada privada de otro líder | abre la persona en la vista de administración, el detalle de la entrada, la ficha o el feed | en la vista de administración ve los datos de la persona y sus asignaciones, sin resumen ni entradas; no accede a la entrada ni aparece contada; si se asigna a sí mismo a la persona, tampoco la ve hasta que el autor la comparta |
-| PT-2 | Destinatario que intenta editar o compartir | una entrada compartida con L2 | L2 envía la edición o una nueva compartición | se rechaza y la entrada no cambia |
-| PT-3 | Revocación por el autor | una compartición vigente con L2 | el autor la revoca | queda `revoked_at` con quién revocó, y la siguiente consulta de L2 (detalle, feed y resumen) ya no la incluye |
-| PT-4 | Fin de asignación y reasignación del destinatario | una compartición vigente con L2 | el administrador termina la asignación de L2 y después lo vuelve a asignar | tras el fin, L2 no accede a la ficha ni a la entrada; tras la reasignación, accede a la ficha, pero no a la entrada hasta que el autor la comparta de nuevo |
-| PT-5 | Desactivación con sesión abierta | L1 con una sesión abierta | el administrador desactiva su cuenta | la siguiente petición de L1 se rechaza, no puede volver a iniciar sesión y sus entradas conservan la autoría |
-| PT-6 | Permanencia al desactivar al autor | L1 con una entrada compartida con L2 (activo y asignado) y otra privada | se desactiva L1 | L2 sigue viendo la compartida con la autoría de L1; la privada no la ve nadie, tampoco el administrador; si termina la asignación de L2, deja de verla |
-| PT-7 | Invitación de un solo uso | una invitación vigente | se usa para establecer la contraseña y después se intenta usar otra vez | el segundo uso se rechaza y la contraseña no cambia |
-| PT-8 | Invitación vencida | una invitación cuyo plazo terminó | alguien intenta usarla | se rechaza; el administrador puede emitir una nueva |
-| PT-9 | Último administrador | un único administrador activo; y, en otra prueba, dos administradores que intentan quitarse el rol entre sí al mismo tiempo | se intenta desactivarlo o quitarle el rol | se rechaza; con operaciones concurrentes, siempre queda al menos un administrador activo |
-| PT-10 | Revocación administrativa sin lectura | una compartición vigente con L2 | el administrador consulta las comparticiones y revoca esa con un motivo | la consulta muestra solo metadatos mínimos; queda registrado quién, cuándo y por qué; L2 deja de verla; el administrador no puede crear comparticiones, editar ni leer la entrada |
-| PT-11 | Autor sin asignación | L1, autor de entradas y de una compartición vigente sobre una persona | el administrador termina la asignación de L1 | L1 sigue leyendo sus entradas, también los borradores, con datos mínimos; no puede editarlas, marcarlas como listas ni compartirlas; puede revocar la compartición; no abre la ficha ni entradas ajenas; al reasignarlo vuelve a editar, sin recuperar comparticiones que perdió como destinatario |
-| PT-12 | Nombres de otros líderes | dos líderes activos asignados a la misma persona | uno abre la ficha | ve el nombre del otro, no sus entradas privadas ni sus datos de contacto; un líder sin asignación no los ve |
+| # | Caso | # | Caso |
+|---|---|---|---|
+| PT-1 | Administrador sin permiso de lectura | PT-7 | Invitación de un solo uso |
+| PT-2 | Destinatario que intenta editar o compartir | PT-8 | Invitación vencida |
+| PT-3 | Revocación por el autor | PT-9 | Último administrador |
+| PT-4 | Fin de asignación y reasignación del destinatario | PT-10 | Revocación administrativa sin lectura |
+| PT-5 | Desactivación con sesión abierta | PT-11 | Autor sin asignación |
+| PT-6 | Permanencia al desactivar al autor | PT-12 | Nombres de otros líderes |
 
 ---
 
@@ -538,18 +536,18 @@ falta algo equivalente a «escalar» es la decisión D3, abierta.
 **Reglas que cruzan entidades** (se garantizan en la aplicación y con tests,
 porque la base no puede expresarlas todas):
 
-| Regla | De dónde sale | Dónde se garantiza |
+| Regla (texto completo en la política) | De dónde sale | Dónde se garantiza |
 |---|---|---|
-| **Lectura por autoría:** el autor con la cuenta activa lee sus entradas, incluidos los borradores, aunque no tenga asignación; solo ve los datos mínimos para identificarlas | PP-9, AM-1 | política y consultas con alcance; PT-11 |
-| **Lectura por compartición:** un líder con la cuenta activa lee una entrada lista ajena si tiene una compartición sin revocar ligada a una asignación activa suya | PP-5, D2 | política y consultas con alcance; PT-3, PT-4 |
-| **Acceso por asignación:** abrir la ficha de una persona, ver los nombres de sus otros líderes y crear, editar, marcar como lista o compartir entradas exige una asignación activa | PP-2, AM-1 | política; PT-11, PT-12 |
-| Ser administrador no da lectura de entradas ni de resúmenes; la vista de administración muestra datos de personas, cuentas y asignaciones y no exige asignación; una cuenta con los dos roles conserva los permisos de cada función por separado | PP-8, 1.10, 1.21 | política; PT-1 |
-| Solo el autor, con la cuenta activa y asignación activa, edita, marca como lista o comparte; el destinatario no edita ni vuelve a compartir | PP-3, PP-5, PP-9 | política; PT-2 |
-| Revocan una compartición su autor, aun sin asignación, o un administrador; el administrador ve solo metadatos mínimos, indica el motivo y no puede crear comparticiones, editar ni leer | PP-5, PP-8, AM-1, AM-3 | política; PT-3, PT-10 |
-| Solo se comparte una entrada lista, de a un destinatario: un líder activo con asignación activa a la misma persona | PP-5, 3.9, 5.6 | dominio y política |
+| **Lectura por autoría**, aun sin asignación y con datos mínimos | PP-9, AM-1 | política y consultas con alcance; PT-11 |
+| **Lectura por compartición:** una compartición sin revocar ligada a una asignación activa del lector | PP-5, D2 | política y consultas con alcance; PT-3, PT-4 |
+| **Acceso por asignación:** la ficha, los nombres de otros líderes y las acciones sobre entradas | PP-2, AM-1 | política; PT-11, PT-12 |
+| Administrar no da lectura de entradas ni de resúmenes; cada función conserva sus permisos | PP-8, 1.10, 1.21 | política; PT-1 |
+| Solo el autor con asignación activa edita, marca como lista o comparte; el destinatario solo lee | PP-3, PP-5, PP-9 | política; PT-2 |
+| Revocan el autor, aun sin asignación, o un administrador con metadatos mínimos y motivo | PP-5, PP-8, AM-1, AM-3 | política; PT-3, PT-10 |
+| Solo se comparten entradas listas, de a un líder activo asignado a la misma persona | PP-5, 3.9, 5.6 | dominio y política |
 | Una compartición vale mientras su asignación esté activa; una asignación nueva no reactiva comparticiones anteriores | D2, 5.10 | consultas con alcance; PT-4 |
 | Solo se registra feedback sobre una persona con asignación activa | PP-2, 2.10 | política |
-| Una cuenta desactivada, por decisión de un administrador, no inicia sesión y sus sesiones dejan de valer en la siguiente petición | PP-7, AM-2, 1.11 | autenticación; PT-5 |
+| Una cuenta desactivada no inicia sesión y sus sesiones dejan de valer | PP-7, AM-2, 1.11 | autenticación; PT-5 |
 | Una invitación sirve una sola vez y antes de vencer | PP-1, AM-5 | autenticación; PT-7, PT-8 |
 | Nunca se desactiva ni se quita el rol al último administrador activo | PP-8, AM-4, 1.12 | transacción con bloqueo (propuesta); PT-9 |
 | Acompañar a una persona no da acceso a lo privado de otro líder | 4.11 | consultas con alcance |
@@ -806,8 +804,8 @@ antes de MVP-BE-2.
   - un líder no puede crear personas, editarlas ni cambiar asignaciones
     (1.20);
   - terminar una asignación quita al líder el acceso a la ficha (1.9);
-  - pasan PT-5 (desactivación con sesión abierta), PT-7 (uso único), PT-8
-    (vencimiento) y PT-9 (último administrador, también concurrente);
+  - pasan PT-5 y PT-7 a PT-9
+    ([detalle en el Anexo A](anexos/anexo-a-historias.md#casos-de-prueba-de-permisos-pt));
   - la vista de administración no muestra resúmenes, conteos ni entradas, y
     gestionar una persona no exige estar asignado (1.10, 1.21);
   - aceptar una invitación no exige sesión, pero sí un token válido; las
@@ -824,15 +822,12 @@ antes de MVP-BE-2.
   PP-9; criterios 1.13, 3.10, 4.11, 4.12, 4.14 y 5.6 a 5.12.
 - **Depende de:** MVP-DB-1, MVP-BE-2 (o datos de prueba equivalentes para
   cuentas y asignaciones) y ADR-3.
-- **Regla:** se **lee** una entrada por autoría (el autor con la cuenta
-  activa, aun sin asignación, con datos mínimos de la persona) o por
-  compartición (una entrada lista con una compartición sin revocar ligada a
-  una asignación activa del lector). Administrar no da lectura. Solo el
-  autor con asignación activa la **edita**, la **marca como lista** o la
-  **comparte**, y solo con líderes activos asignados a la misma persona.
-  **Revocan** el autor, aun sin asignación, o un administrador que ve solo
-  metadatos mínimos e indica el motivo. Todo lo demás se deniega, también
-  ante peticiones directas por URL.
+- **Regla:** aplica la política PP-2 a PP-9 y las
+  [reglas que cruzan entidades](#32-descripción-de-entidades-principales):
+  lectura por autoría o por compartición vigente; edición y compartición
+  solo del autor con asignación activa; revocación por el autor o por un
+  administrador sin lectura. Todo lo demás se deniega, también ante
+  peticiones directas por URL.
 - **Pasos:**
   1. Escribir los tests de peticiones: un caso permitido y uno rechazado por
      regla, en detalle, edición, marcar como lista, compartir, revocar, feed y
@@ -850,11 +845,8 @@ antes de MVP-BE-2.
     resumen de la persona, **entonces** no la cuenta (4.11).
   - **Dado** dos líderes de la misma persona con comparticiones distintas,
     **entonces** sus resúmenes difieren (4.12).
-  - Pasan PT-1 (administrador sin lectura), PT-2 (destinatario que intenta
-    editar o compartir), PT-3 (revocación por el autor), PT-4 (fin de
-    asignación y reasignación), PT-6 (permanencia al desactivar al autor),
-    PT-10 (revocación administrativa sin lectura), PT-11 (autor sin
-    asignación) y PT-12 (nombres de otros líderes).
+  - Pasan PT-1 a PT-4, PT-6 y PT-10 a PT-12
+    ([detalle en el Anexo A](anexos/anexo-a-historias.md#casos-de-prueba-de-permisos-pt)).
   - Ninguna acción de entradas queda sin cubrir por la política, comprobado
     por un test.
 - **Fuera de alcance:** la interfaz de compartir y revocar; se construye con
