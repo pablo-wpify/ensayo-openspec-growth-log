@@ -32,6 +32,13 @@
 | **Decidido** | Decisión de producto tomada por Pablo; todavía no implementada. |
 | **Decisión abierta** | Depende de una decisión pendiente (D3, D4 o un ADR). |
 
+**Guía de lectura.** Para revisar la propuesta: problema y recorrido
+([§1](#1-descripción-general-del-producto)), arquitectura y modelo de datos
+([§2](#2-arquitectura-del-sistema)–[3](#3-modelo-de-datos)), historias y
+tickets ([§5](#5-historias-de-usuario)–[6](#6-tickets-de-trabajo)). El
+[Anexo G](anexos/anexo-g-plan-incremental.md) explica cómo se construirá
+por incrementos; los demás anexos contienen el detalle.
+
 ## Documentos complementarios
 
 | Documento | Qué contiene |
