@@ -41,7 +41,8 @@ Antes de cada comando local, cargar el archivo de entorno del ensayo
 
 ## 7. Ejecución en GitHub Actions (A6, pendiente)
 
-- [ ] 7.1 Ejecutar el workflow en GitHub Actions en un pull request y verificar que todos los jobs terminan en verde. **Requiere autorización explícita para publicar en un repositorio de GitHub; hasta entonces queda sin marcar y E1 no se declara completo**
+- [x] 7.1 Ejecutar el workflow en GitHub Actions en un pull request y verificar que todos los jobs terminan en verde. **Requiere autorización explícita para publicar en un repositorio de GitHub; hasta entonces queda sin marcar y E1 no se declara completo**
+  - Evidencia: ejecución https://github.com/pablo-wpify/ensayo-openspec-growth-log/actions/runs/40779743471 del workflow CI, disparada por el PR #1 sobre el commit `796148fb745d8ce33716caad1a336b10a574637c`. Los cuatro jobs terminaron en `success`: `scan_ruby`, `scan_js`, `lint` y `test`. En `test`, `ruby/setup-ruby` tomó Ruby 4.0.9 de `.ruby-version`, el servicio usó `postgres:18.6`, se creó `growth_log_ensayo_test` y RSpec dio 4 ejemplos, 0 fallos.
 
 ## Workflow follow-up
 
