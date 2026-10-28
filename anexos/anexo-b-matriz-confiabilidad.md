@@ -18,7 +18,7 @@ que falta decidir o validar para cumplirlos.
 
 | # | Capa | Requisito del MVP (propuesto) | Pendiente de decisión o validación |
 |---|---|---|---|
-| 1 | Límite de peticiones | Limitar intentos de inicio de sesión y de recuperación de contraseña. | mecanismo (en la aplicación o delante de ella) y umbrales; ADR-2 |
+| 1 | Límite de peticiones | Limitar intentos de inicio de sesión y de uso de enlaces de invitación; también de recuperación de contraseña si se incluye (mejora pendiente, fuera del alcance comprometido). | mecanismo (en la aplicación o delante de ella) y umbrales; ADR-2 |
 | 2 | Caché y CDN | No es un requisito del MVP; caché de recursos estáticos. | medir antes de agregar nada |
 | 3 | Backups y recuperación | Backups automáticos de PostgreSQL y **una restauración probada antes de cargar datos reales**. | proveedor, retención y frecuencia; ADR-7 |
 | 4 | Optimización de la base | Índices para las consultas de visibilidad (autor, persona, destinatario); listados sin consultas repetidas; paginación del feed. | medir con datos de prueba |

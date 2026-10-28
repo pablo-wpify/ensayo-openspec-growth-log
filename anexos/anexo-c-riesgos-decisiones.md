@@ -15,9 +15,9 @@ construido.
 | RN-4 | **Resúmenes distintos parecen un error.** Dos líderes de la misma persona ven cifras diferentes (4.12). | Indicar qué entradas son propias y cuáles compartidas. |
 | RN-5 | **Datos sensibles fuera de la aplicación.** El feedback termina en logs o en un servicio externo de errores. | Filtrar el feedback de logs y reportes (2.5); elegir servicios con eso en cuenta (ADR-8). |
 | RN-6 | **Alcance.** Sumar funciones fuera de las cinco historias retrasa el MVP. | Limitarse a las cinco historias y llevar el resto al backlog. |
-| RN-7 | **Decisiones de privacidad sin resolver.** | **Mitigado:** D1, D2, D5 y AM-1 a AM-5 decididas (27/10/2026); quedan D3 y D4, que no bloquean el MVP. |
+| RN-7 | **Decisiones de privacidad sin resolver.** | **Mitigación definida; pendiente de implementación y pruebas:** D1, D2, D5 y AM-1 a AM-5 decididas (27/10/2026). Quedan D3 y D4, que no bloquean el MVP. |
 | RN-8 | **Evidencia privada inaccesible** cuando se desactiva a su autor: nadie puede leerla, tampoco el administrador (D5). | Consecuencia aceptada; explicarla a los líderes desde el inicio. |
-| RN-9 | **Comparticiones sin revocador** cuando el autor está desactivado. | **Mitigado por AM-3:** el administrador puede revocar una compartición concreta sin leerla. |
+| RN-9 | **Comparticiones sin revocador** cuando el autor está desactivado. | **Mitigación definida por AM-3; pendiente de implementación y pruebas:** el administrador puede revocar una compartición concreta sin leerla (PT-10). |
 | RN-10 | **Sesiones vigentes después de desactivar una cuenta.** | Invalidar las sesiones al desactivar y comprobar la cuenta en cada petición (PT-5). |
 | RN-11 | **La vista administrativa de comparticiones deja ver contenido.** | Mostrar solo metadatos mínimos y probarlo (PT-10). |
 | RN-12 | **Invitaciones reutilizadas o interceptadas.** | Enlace de un solo uso y con vencimiento, guardar solo el resumen del token y no enviar contraseñas (PT-7, PT-8). |
@@ -99,7 +99,7 @@ Decididas por Pablo (27/10/2026).
 |---|---|
 | Datos mínimos que ve un autor sin asignación (AM-1) | nombre de la persona, fecha del hecho, estado y su propio texto; sin otros datos de la ficha |
 | Metadatos que ve el administrador al revocar (AM-3) | autor, destinatario, persona y fecha de la compartición; nunca contexto, evidencia, impacto, señal ni dimensión |
-| Motivo de la revocación (AM-3) | obligatorio cuando revoca el administrador y opcional cuando revoca el autor; es un campo de la compartición, no un sistema general de auditoría |
+| Motivo cuando revoca el autor | opcional. Cuando revoca el administrador el motivo es obligatorio, porque AM-3 exige registrar por qué. En ambos casos es un campo de la compartición, no un sistema general de auditoría |
 | Último administrador ante concurrencia (AM-4) | comprobar y aplicar el cambio dentro de una transacción que bloquee las cuentas administradoras activas |
 
 ## C.4. Otras decisiones

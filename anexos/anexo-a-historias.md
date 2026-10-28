@@ -18,7 +18,7 @@
 | PP-5 | Solo el autor, con asignación activa, comparte una entrada propia y lista, de a un destinatario: un líder con cuenta activa que acompaña actualmente a la persona. El destinatario la lee mientras su cuenta siga activa, mantenga la asignación y la compartición no esté revocada; no la edita ni la vuelve a compartir. Revocan el autor, aun sin asignación, o un administrador sin leer la entrada (D2, AM-1, AM-3). | 1.9, 1.13, 4.3, 4.10, 5.6, 5.7, 5.9, 5.10, 5.12 |
 | PP-6 | El feed y el resumen de una persona muestran únicamente las entradas que el líder tiene permiso para ver. | 1.15, 4.2, 4.6, 4.12, 5.4 |
 | PP-7 | Si un autor deja el equipo, un administrador desactiva su cuenta, que no se borra: no puede iniciar sesión y sus sesiones abiertas se invalidan. Sus entradas y su autoría se conservan; las compartidas siguen disponibles para destinatarios con permiso vigente y las privadas quedan sin acceso ordinario, también para el administrador (D5, AM-2). | 1.11, 5.11 |
-| PP-8 | Un administrador invita y desactiva cuentas, crea y edita personas, asigna y termina asignaciones, y puede revocar una compartición concreta viendo solo los metadatos mínimos para identificarla. Administrar no da permiso para leer entradas, crear comparticiones ni editarlas. Nunca se puede desactivar ni quitar el rol al último administrador activo. Una misma cuenta puede administrar y acompañar personas (D1, AM-2 a AM-4). | 1.1, 1.3–1.7, 1.10–1.13, 1.20, 1.21 |
+| PP-8 | Un administrador invita y desactiva cuentas, crea y edita personas, asigna y termina asignaciones, y puede revocar una compartición concreta viendo solo los metadatos mínimos para identificarla. Lo hace desde la vista de administración, que muestra datos de personas, cuentas y asignaciones, sin necesidad de estar asignado. Administrar no da permiso para leer entradas ni resúmenes, crear comparticiones ni editarlas. Nunca se puede desactivar ni quitar el rol al último administrador activo. Una misma cuenta puede administrar y acompañar personas, con los permisos de cada función por separado (D1, AM-2 a AM-4). | 1.1, 1.3–1.7, 1.10–1.13, 1.20, 1.21 |
 | PP-9 | Mientras su cuenta esté activa, un autor conserva la lectura de sus propias entradas, incluidos los borradores, aunque termine su asignación. Sin asignación no las edita, no las marca como listas ni las comparte, pero puede revocar sus comparticiones. La autoría no da acceso a la ficha de la persona ni a entradas ajenas: se muestran solo los datos mínimos para identificar sus entradas (AM-1). | 1.9, 3.10, 4.14, 5.3, 5.12 |
 
 **Criterios que se desprenden de la política, aceptados por Pablo** (27/10/2026):
@@ -45,13 +45,15 @@ líderes, para que cada líder acompañe a quienes le corresponden. Como líder,
 quiero ver las personas que tengo asignadas, para registrar feedback sobre
 cada una.
 
-**Recorrido del administrador.** Invita a un líder, que establece su
+**Recorrido del administrador.** Desde la vista de administración, que
+muestra datos de personas, cuentas y asignaciones, pero no resúmenes ni
+entradas, invita a un líder, que establece su
 contraseña desde el enlace; crea una persona y la asigna a uno o más
 líderes; cuando corresponde, termina una asignación, da de baja a la
 persona, desactiva una cuenta o revoca una compartición concreta sin leerla.
 
 **Recorrido del líder.** Entra en «Personas», ve las personas activas que
-tiene asignadas y abre su ficha.
+tiene asignadas y abre su ficha, con el resumen y las entradas que puede ver.
 
 **Cuenta administradora inicial:** se crea con un procedimiento documentado,
 sin secretos en el repositorio (D1, AM-5).
@@ -66,10 +68,10 @@ sin secretos en el repositorio (D1, AM-5).
 | 1.4 | **Cuando** creo una persona sin nombre, **entonces** no se guarda y veo el error. *(PP-8)* |
 | 1.5 | **Cuando** creo o edito una persona, **entonces** se guardan su nombre, su rol y su equipo. *(PP-8, D1)* |
 | 1.6 | **Cuando** doy de baja a una persona, **entonces** deja de aparecer en los listados y conserva su historial. *(PP-8)* |
-| 1.7 | **Dado** que hay personas inactivas, **cuando** las busco, **entonces** puedo verlas y reactivarlas. *(PP-8)* |
+| 1.7 | **Dado** que hay personas inactivas, **cuando** las busco en la vista de administración, **entonces** puedo verlas y reactivarlas. *(PP-8)* |
 | 1.8 | **Cuando** asigno un líder activo a una persona, **entonces** ese líder accede a su ficha; una persona puede tener varios líderes. *(PP-2, D1)* |
 | 1.9 | **Cuando** termino una asignación, **entonces** el líder deja de acceder a la ficha y a las entradas compartidas con él sobre esa persona, también por URL directa; como autor conserva la lectura de sus propias entradas. *(PP-2, PP-5, PP-9, D2, AM-1)* |
-| 1.10 | **Dado** que soy administrador, **entonces** serlo no me permite leer entradas: solo veo las que escribí o me compartieron como líder asignado. *(PP-8, D1)* |
+| 1.10 | **Dado** que soy administrador, **cuando** abro una persona en la vista de administración, **entonces** veo sus datos y sus asignaciones aunque no esté asignado, pero no su resumen ni sus entradas: serlo no me permite leer entradas; solo veo las que escribí o me compartieron como líder asignado. *(PP-8, D1)* |
 | 1.11 | **Cuando** desactivo una cuenta, **entonces** no puede iniciar sesión, sus sesiones abiertas dejan de valer y sus entradas conservan la autoría. *(PP-7, D5, AM-2)* |
 | 1.12 | **Cuando** intento desactivar o quitar el rol al último administrador activo, también con operaciones simultáneas, **entonces** no se permite. *(PP-8, AM-4)* |
 | 1.13 | **Cuando** consulto las comparticiones vigentes, **entonces** veo solo los metadatos mínimos para identificarlas; **cuando** revoco una indicando el motivo, **entonces** queda registrado quién, cuándo y por qué, sin leer la entrada ni poder crear comparticiones o editar. *(PP-5, PP-8, AM-3)* |
@@ -85,7 +87,7 @@ sin secretos en el repositorio (D1, AM-5).
 | 1.18 | **Entonces** veo los nombres de los demás líderes activos asignados a esa persona, sin sus entradas privadas ni sus datos de contacto. *(PP-2)* |
 | 1.19 | **Cuando** intento abrir una persona sin asignación activa, incluso por URL directa, **entonces** no accedo. *(PP-2)* |
 | 1.20 | **Cuando** intento invitar cuentas, crear personas, editar sus datos o cambiar una asignación sin ser administrador, **entonces** no puedo. *(PP-8, D1)* |
-| 1.21 | **Dado** que mi cuenta administra y además tengo personas asignadas, **entonces** como líder veo solo esas personas y sus entradas visibles, y como administrador gestiono personas y asignaciones sin leer entradas ajenas. *(PP-8, D1)* |
+| 1.21 | **Dado** que mi cuenta administra y además tengo personas asignadas, **entonces** en «Personas» y en la ficha veo, como líder, solo esas personas y sus entradas visibles, y en la vista de administración gestiono todas las personas, cuentas y asignaciones sin ver resúmenes ni entradas; ninguna función amplía los permisos de la otra. *(PP-8, D1)* |
 
 - **Fuera de la historia:** borrar una persona (backlog).
 

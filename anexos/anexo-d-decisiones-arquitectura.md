@@ -26,7 +26,9 @@ decida, se completa con la decisión, la fecha y sus consecuencias.
 
 - **Contexto:** PP-1 exige cuentas individuales. El MVP necesita inicio de
   sesión, invitaciones con enlace de un solo uso y con vencimiento (AM-5),
-  invalidación de sesiones al desactivar (AM-2) y límite de intentos.
+  invalidación de sesiones al desactivar (AM-2) y límite de intentos. No hay
+  registro público. La recuperación de contraseña es una mejora pendiente,
+  fuera del alcance comprometido: sus requisitos solo aplican si se incluye.
 - **Opciones:** Devise; el generador de autenticación de Rails más funciones
   propias; un proveedor externo (OAuth).
 - **Criterio:** cubrir esas funciones sin código propio sensible; alta de
