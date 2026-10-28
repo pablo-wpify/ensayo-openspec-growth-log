@@ -1,0 +1,53 @@
+schema: spec-driven
+
+context: |
+  Language: es
+  All artifacts must be written in es.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+
+  Proyecto: Growth Log. Este repositorio es una copia aislada y descartable
+  para ensayar OpenSpec; la fuente de cada cambio es su ticket en ensayo/.
+  La documentación del producto está en README.md y anexos/ (solo lectura en
+  este ensayo): plan incremental en anexos/anexo-g-plan-incremental.md (E1 a
+  E4, I1 a I9), decisiones de arquitectura en
+  anexos/anexo-d-decisiones-arquitectura.md, stack y requisitos en las
+  secciones 2.2 a 2.6 del README, matriz de confiabilidad en
+  anexos/anexo-b-matriz-confiabilidad.md.
+
+  Decisiones aceptadas por Pablo para el ensayo: Ruby 4.0.9, Rails 8.1.4,
+  RSpec, PostgreSQL 18.6 en local y en el CI, monolito Rails (ADR-1).
+  Abiertas y fuera del ensayo: ADR-2 a ADR-8 salvo ADR-1; ADR-6 (E2E) y
+  ADR-7 (despliegue) no se resuelven aquí.
+
+  Restricciones:
+  - No agregar autenticación, invitaciones, feedback, modelos del dominio,
+    despliegue ni funciones que el ticket no pida.
+  - Sin credenciales locales o reales en el repositorio: la base se configura
+    por variables de entorno. La única contraseña versionada es la del
+    servicio de PostgreSQL del CI, exclusivamente de prueba.
+  - Un criterio que solo se verifica en GitHub Actions queda pendiente hasta
+    ejecutarlo; no se declara completo ni se archiva el cambio mientras siga
+    pendiente.
+  - Distinguir lo decidido, lo propuesto y lo verificado.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always state what is out of scope
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
